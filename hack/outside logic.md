@@ -1,0 +1,29 @@
+-->swantham id maati vere oralude id aaki IDOR chyumbol response error veram.apol ivan athil access-allow-methods:GET.PUT... enn kanunund.so ivan aa request get method il aaki id maati nokumbol IDOR nadakunund
+-->request ile host: il vere website name koduthit (Intercept chythit) forward adikuka enit siteil eth button click chytal aa inject chytha website ilek pokunundengil ath host header injection
+-->DIRECTORY LISITING --> `site:*.dell.com intitle:index.of`
+-->login page ilek pokuka enit request il get 302 move... ennath maati 200 OK enn respones il kodukuka.intercept chythit response intercept chyuka enitan chyendath
+-->==athayath namal enthengilum main karyam chyumbol namale athin anuvadikathe vere engotengilum redirect chyumbol ithupole intercept chythit response 200 OK enno mato chyth test chyuka==
+-->oro site intem html/js structure view-source il nin manasilakuka
+-->html il javascript inte src nokuka athil pala versionsum kanan kazhinjekum like dompurify-2.0.5 angane enthengilum oke kanum apol athinte exploit undon nokanam
+-->rand reethyil aanalo main aayi hacking nadathunath server and client side. client side il hack chyan thodangumbol nerthe praanjapole aadyam html,js structure nokanam.html il poi oro js inte src poi oro js study chyanam ok enit aan client side hacking ilek kadakenath apol korach koodi idea kitum
+-->xss oke chyumbol already aa code il " symbol undengil nammal single qoute idanam ok
+-->profile il enthengilum oke matangal varuthan chelapo site ukal email adikan parayum enit email il avar otp ayakum.so namal enth chyanam ennal aa /POST request il thazhe aayi email="originamail@gamil.com"  ennayirikumalo undavka.so nammal enth chyanam ennal  email="[originalmail@gmail.com,attackermail@gamil.com]" enna kodukuka apol chelapo server rand maililekum otp ayakumayirikum
+-->html injection chyan patumengil dns clobbering polulla techniques , athayath injertng javascript code inside the html tag angane id oke koduth enthengilum oke chyan patumon noknanam
+-->burp il intruder->options->grep-extract enthenal ethengilum oru div select chyuka enit start attack kodukuka apol aa div il ulla karyangal namuk aa result il thane eduth kanikum athinana ee sathanam use chyunath
+-->/.ssh/id_rsa  ennal ssh key aan ok. ithil ssh key udnakum id_rsa yil
+-->request ukalil    x-forwarded-host: attacker.com athinte thazeh x-forwarded-scheme: nohttps  enn koduth send chyuka apol open redirection nadakunundon ariyan patum
+-->x-original-url: /admin enn request ukalil koduth nokuka apol chelapo admin inte enthengilum aayekum
+-->cookie yil ulla value change chyth enthengilum kodukuka apol ath athepole reflect chyunundon nokuka.angane undengil namuk web cache poison oke test chyam
+-->`X-Forwarded-Proto: http`  enn kandal athinartham http yil nin oru request vannal ath https ayitulla pathilek redirect chyuna header aanen thonunu
+-->authenticatino oke chyuna samayath email il otp varum apol email il confirm enna oru button undakum.so ath right click chyth `copy link location` select chyuka enit browder il aa url koduth search chyuka.enit aa traffic burp il study chyuka.so burp il kore request undakum athoke study chyuka mainly tokens undakum so aa token copy chyth burp il search click chyth paster chyth send chyuka apol namude normal application il aa token evidengilum oke kanan sadhyatha und.ithinartham token leak aakunund ennan
+-->oru page load chyumbol athinte koode enthoke request chyunund enn nokuka.js reqeust nokuka.chelapo aa request il thane enthengilum callback function execute chyunundakum.so athoke nokuka.angane ulla reqeust repeateril itt test chyuka like webcache poisoning
+-->namal website il enth karyam chyumbozhym website inum backendinum idakum loadbalacer/reverse poxies undakum. ee technologies aan namude request backendilek koduth namuk response tharunath(ella actions ilum ee loadbalancer idapedunund enn thonunu).so ee loadbalancer ine namuk control chyan patiyal namuk palathum chyan patiyekum.->https host header attack
+-->host: headeril burp collaborator client link koduth send adich nokuka.loadbalancer vulnerable aanengil ee arbitrary server ilek request ayachekum
+-->==Use Burp Collaborator client to confirm that you can make the website's middleware issue requests to an arbitrary server.collaborator ennath oru server aan.athilek namude target il ninum oru request pokunundengil athinartham namude aa target inte aa oru request ile request ayakuna process il entho kozhapam und.athukondan original serverilek request ayakunathin pakaram vere serverilek request ayakunath==
+-->oru header puthuthayi request il add chyan patunilengil korach space ittit aa header test chyth nok
+-->GET /  ennath web root aan ok
+-->Responses to `HEAD` requests often contain a `content-length` header even though they don't have a body of their own. This normally refers to the length of the resource that would be returned by a `GET` request to the same endpoint.
+-->namal oru application il ninum logout aayit pinem login chyumbol peten thane login aavukayanengil athyath username,password onum kodukathe peten login chyan patunengil logout aayalum namude session still active aanenan athinartham
+-->admin page kitumbol.username,password oke adikan parayum.enale aa dashbordilek keran patu.so namal aa form inte js file nokuka.enit aa oru request eth pathilekan pokuka enn nokuka. enit namal url il direct aa path koduth search chythal chelapo admin dashbordilek pakan patum(username: admin password : enthengilum koodi koduth search chyth nok)
+-->application il WAF undon nokan namuk cookie: nokanam.cookiyil session cookiepole vere cookie undakum.so athil cookie name undakam angane eth waf aan use chyunath enn manasilakam
+-->

@@ -1,0 +1,2 @@
+-->ffuf -w /usr/share/amass/wordlists/ -u https://www.google.com/FUZZ
+-->ee commandinde koode 2>/dev/null cherkam enn thonunu
