@@ -140,7 +140,7 @@ src="https://0ae700310356d791c5d1da390093006b.web-security-academy.net/feedback?
              width:600px;
              height: 600px;
              opacity: 0.5;
-            z-index: 2;
+             z-index: 2;
 	}
    .firstClick, .secondClick {
 		  position:absolute;
@@ -168,4 +168,4 @@ src="https://0ae700310356d791c5d1da390093006b.web-security-academy.net/feedback?
 -->pine onnan `X-Frame-Options: deny` enna header usu chyunath.ith use chyumbol oru web page inte ullil matore frame use chyunath block chyum
 -->same origin il mathram framing chyanum ith use chyum ->`X-Frame-Options: sameorigin`
 -->ini vere oru website il ninum frame chyan ->`X-Frame-Options: allow-from https://normal-website.com` use chyunu.athayath ee site whitelist chythirikukayan
--->x-frame-options browser il implement chythathan
+-->x-frame-options browser il implement chythathan 

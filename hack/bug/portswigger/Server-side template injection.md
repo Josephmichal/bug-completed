@@ -66,8 +66,8 @@
 
 ==============================================================
 
-         Lab-4(Server-side template injection in an unknown language with a 
-               documented exploit)
+         Lab-4(Server-side template injection in an unknown language with 
+                             a documented exploit)
 -->lab il keruka athil login option illa.so athinartham authentication check chyuna sambavam ila
 -->ithil first product inte view-details enn button click chyuka
 -->apol `Unfortunately this product is out of stock` enn page il kanikum.ee same msg url ilum kanikum

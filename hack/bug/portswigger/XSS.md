@@ -3,7 +3,7 @@
 
     Lab-1(Reflected XSS into HTML context with nothing encoded)
 -->ivide lab il search functionil reflected xss und
--->so searchil -><script>alert(1)</script> koduth search chythal xss trigger aakum
+-->so searchil ->`<script>alert(1)</script>` koduth search chythal xss trigger aakum
 
 =============================================================
 
@@ -84,7 +84,7 @@ ini ethengilum oru user ee page visit chythal avante email automatic aayi marum 
 -->then <body%20$attribute$=1> apol namuk ingane kitum:
              <body onresize=alert(1) />  so ith search il search chythit browser resize chythal ee alert pop up chyum
 -->ini ith iframe tag il aaki victims in send chyanam:
-		<iframe src="https://your-lab-id.web-security-academy.net/search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'>
+		`<iframe src="https://your-lab-id.web-security-academy.net/search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'>`
 -->ith koduthit store click chyuka enit deliver to victim koduthal solve aakum
 	============================================================
 
@@ -166,8 +166,8 @@ location = 'https://your-lab-id.web-security-academy.net/?search=%3Cxss+id%3Dx+o
 -->ivide ee - (hyphen symbol aakunath enthenal enik correct areela entho NaN pole entho aan)
 -->Some useful ways of breaking out of a string literal are:
 
-                     `'-alert(document.domain)-' 
-                     ';alert(document.domain)//`
+                     '-alert(document.domain)-' 
+                     ';alert(document.domain)//
 
 ==============================================================
 
@@ -186,7 +186,6 @@ location = 'https://your-lab-id.web-security-academy.net/?search=%3Cxss+id%3Dx+o
 -->ivide namal aaduam /POST request il comment send chyunu so aa request repeater il vittu send adichal 200ok enn kanam ini browser il go back adich aa same post refresh chyuka apol namuk aa page il namal adicha comment oke kanalo so aa request um repeater il viduk enit namal type chytha comment study chyuka.athil email il namal type chytha sambavam
 -->so nammal   ->http://foo?&apos;-alert(1)-&apos;    enna url email: parameter il kodukunu apol ee url alert call chyum enit comment submit chyuka
 -->ini aarengilum ee comment ile username il click chythal xss aakum
-
 ==============================================================
 
         lab-17(Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped)

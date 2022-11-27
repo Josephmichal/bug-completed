@@ -10,9 +10,9 @@ Immunity Debugger is a tool that we can use for malware analysis, exploit writin
 
                      =============== **EXERCISE (windows):**  ===============
 -->first nammal immunity debugger eduth vulnerable app run chyyunu.ath paused statil ayirikum undavuka.so run chyuka.athil port 31337 listern chyunu enn kanikum.so ini namalude kaliyil varuka and make sure that port is runnng
--->nmap [targer ip]
+-->nmap [target ip]
       Once it is confirmed that the application is listening on port 31337 we can move forward and check how the application functions. We will use Netcat to interact with the application.
--->nc [targer ip] 31337
+-->nc [target ip] 31337
     ivide namuk test,enthengilum adikuka ok.Next, we will try to **fuzz** the application and see if we can crash it or not.
 -->Here we are using a Fuzzer that generates a bunch of A’s (\x41) and sends it to our vulnerable application. The number of A’s is incremented every time because of a while loop present in the Fuzzer’s code. Fuzzer repeats the process until and unless it detects a crash in the application and couldn’t connect to it anymore.
 -->fuzz chyunathin mumb immunity debuggeril poi app running thanne aano enn urapp varuthuka.oru python script und fuzz chyan.ath vechan fuzz chyunath.

@@ -24,4 +24,8 @@
 	                                                      |
 	                                                 HARDWARE
 -->**docker vs virtual machine** --> docker application layer il mathraman run chyuka.so host inte thane kernal aan docker run chyumbol use chyuka.but virtual machine use chyumbol athinte thane kernalum use chyunu.ie, virtual machine run chyumbol application layerum athupole kernal um vere thane aan use chyunath.ithukond thane docker aan VM kelum fast.docker small size aan comparing VM.But VM namuk eth operating systethinte molilum chyam.But docker athintethaya OS ulla host ile run chyan patu.athayath windows kernal ann host engil namuk linux inte docker use chyan patila
--->
+
+=====================================================
+-->njan docker il ninum ruby edukan nokit ayila ie,
+->`docker run -it ruby /bin/bash`
+-->so njan ->apt install docker adichit onude chythapol downloading aakunund but pinem vere entho error knaikunundayirunu

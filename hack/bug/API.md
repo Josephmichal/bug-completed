@@ -64,3 +64,12 @@ Namal ivide padikan pokunath REST based webservices aan or API
 -->namuk response aayi varuna json api parse chyan upayogikuna sathanamanen thonunu "jsonpath"
 -->jsonpath is a query language that helps us in parsing the json data.ith parse chyunath $,@,.. agnene oron vechan $ means root.athayath aa json data angane thane parse chyum. $.name ennanengil aa json data yile name parameter mathram parse chyum
 -->jsonpath.com enna siteil poi namuk ith test chyth padikan patum
+
+
+====================================================
+
+### CDN
+-->cdn ennal content delivery network.cloudflare oke CDN ann. CDN use chyunath enthinenal internet il ulla contents fast , secure, private aayi namuk deliver chyan aan.
+-->Lokath eelaydathum cloudflare inte servers aaki vechitund.so namal cloudflare use chyuna oru website use chyumbol namuk aa cdn vazhi peten contents internet il ninum kitum
+-->Ddos attack oke illandakan CDN sahayikum
+-->website il ninum namal oru page load chyumbol undakuna loading time cdn kurakum. cdn use chyumbol images,js files oke peten namuk tharumenan parayunath

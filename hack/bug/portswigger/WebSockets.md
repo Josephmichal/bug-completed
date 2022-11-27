@@ -1,6 +1,6 @@
 ## WebSockets :
 -->oru http request enganeyan work chyunath enn aadyam nokam.web server umayi connect chyan nammal http/https enna protocols use chyunu.ee protocols use chyth url il namuk venda request ayakunu
--->reqeust ayach response kitunath vere oru TCP connection undakunu.enit response kitikazhinjal aa TCP connection close aakum(Note: port connection undakum).eg: oru site 5 different request ayakunundengil 5 different tcp connections seperate aayi undakkunu.response kitunathinanusarich oru connection um close aakunu
+-->reqeust ayach response kitunath vere oru TCP connection undakunu.enit response kitikazhinjal aa TCP connection close aakum(Note: port connection undakum).eg: oru site 5 different request ayakunundengil 5 different tcp connections seperate aayi undakkunu.response kitunathinanusarich oro connection um close aakunu
 -->Websockets involve aakuna samayath ws:// oru wss:// enna protocol aan use chyuka ie,wss://google.com.ws http pole encruption ila.so wss aan nallath(TLS connection undakum)
 -->WebSocket connections are initiated over HTTP.To establish the connection, the browser and server perform a WebSocket handshake over HTTP
 -->http/https use unidirectional communication.athayath sender oru request trigger chythale response kitu

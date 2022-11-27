@@ -2,6 +2,7 @@
 -->In simple words, a web server serves HTTP requests
 -->when a browser requests a file over http protocol the web server accepts the requests, find the requested document and sends back to the browser
 -->rand aalukal thamil communicate chyanamengil randperkum ariyavuna oru language samsarikanam.athupole browser um server um thamil communicate chyan HTTP protocol use chyunu.
+-->==NOTE:server ennath oru computer aan.aa comiputer il aan nammude applications um mattu karyanglum okke save aayi kidakunath.so namal oru file request kodukumbol namude request ee server enna computer ilek pokunu enit aa computer il aa sathanam undnegil aa computer namuk ath tharunu ok==
 -->Wireshark tool use chyth namuk traffic oke nokam apol ellam manasilakum
 -->GET request il Range: bytes=0-1024  enna header koduthal aa request il ulla athrem bytes mathram namuk response aayi kitum.ithinte partial GET request enn parayum.ee reethi namuk chyanengil HTTP/1.1 protocol aayirikanam use chyunath.vere aanengil ith work aakila.ith vech namuk videos oke korach mathramayi retrieve chyam
 -->partial GET request il namuk 200 ok response alla marich 206 response aan status il varuka
@@ -37,7 +38,10 @@ ithil adyatheth type um slash in shesham varunath subtype um aan.ie, application
 ==============================================================
 
 # Reverse Proxy
--->generally between the web browser and the application server sits the nginx  `browser-nginx-application` 
+-->generally between the web browser and the application server sits the nginx  
+`browser<->nginx<->application` 
+ie, CLIENT (google.com)  <--> PROXY (192.168.12.48)  <--> WEB SERVER (192.168.12.49)
+so client webserverumayi nerit interact chyunila proxy server umayi mathram aan.so namal terminalil ping google.com ennoke adikumbol aa application inte r.proxy inte ip aayirikam kitunath areela.NOTE:- namal nginx server linux il install chyanam enit linux il nginx il route oke koduth aan path oke chyunath.ellam namal thane aan chyunath allathe namal host chyth kazhinj nginx swayam chyunathala nginx inte code um namal thane aan chyunath.
 -->so browser oru page request chyumbol aa request aadyam nginx reverse proxy ilek pokum avide ninn application server ilek pokunu.enit application response nere nginx reverse proxy lek ayakunu.avide ninum nginx browser ilek aa response ayakunu.athayath browser intem appliation te naduvilayi nginx nilkunu
 -->ingane nginx middle aayi nilkunathinte reverse proxy ennu parayunu
 -->ithukond thane browser in backendumayi communicate chyenda avstha varunila pakaram nginx aa work chutholum.browser nginx umayi mathrame communicate chyunulu
@@ -116,11 +120,11 @@ enn .conf file il chealpo kandekam.health check ennal proxy epozhum ariyanam eth
 -->server il ninum namuk venda sathanam kiti kazhinjal aa connection apol thane close aakum
 -->ini veendum namuk serverumayi communicate chyenenngil veendum aadyam 3 way hand shake nadathanam.athayath oro request inum 3 way handshake nadatheetan communcation nadakuka
 -->pakshe ipol oru web application browser use chyumbol ore samayam orupad requests server umayi nadathendi varum apol ee oru reethi use chyuka enn dhushkaramayirikum
--->so athinayi namal request il keep-alive header use chyunu.apol oru tcp connection vech multiple request angot ayakunu athupole multiple response namuk kitunu.so otta tct connection il thane namuk serverin kore requests ayakam
+-->so athinayi namal request il keep-alive header use chyunu.apol oru tcp connection vech multiple request angot ayakunu athupole multiple response namuk kitunu.so otta tcp connection il thane namuk serverin kore requests ayakam
 
 ### Cache Hit & Miss
 -->namal oru request ayakumbol athinulla resposne intermediary cache il undengil avide ninum namuk response kitunu.so athan cache HIT
--->athe samayam namuk venda request cache il illengil namude request aa intermediary cache proxy nere server il ayakunu.enit server namuk response tharunu.so athan cache MISS.enit ee varuna response athinte configuration anusarich cache il store chyum oro chyilayirikum
+-->athe samayam namuk venda request cache il illengil namude request aa intermediary cache proxy nere server il ayakunu.enit server namuk response tharunu.so athan cache MISS.enit ee varuna response athinte configuration anusarich cache il store chyum or chyilayirikum
 
 ### Static Asset
 -->satharan namal ipo /index.html file request chyukayanengil aa request reverse proxy vazhi back end server ilek pokum.but index.html retrive chyumbol athinte koode vere files undakum like images.css.javascript file oke undakum.apol aa oro files um ee /index.html enna request vazhi tharanam.ipo 7 extra file koodi undneigl /index.html koodi 8 aakum.apol 8 request backend ilek pokum apol oru 100 per ee same request chythalo kore aakum.apol athinulla pariharaman static aayitulla files oke backend il ninum reverse proxy ilek aakuka.athayath image files css files ...angane ullathoke ini reques varumbol ee reverse proxy(nginx) il ninum namuk kitum athesamayam /index.html um pine athinte koode ulla dynamic files oke aan backend il ninum namuk response aayi varuka apol performance koodum

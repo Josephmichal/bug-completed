@@ -25,7 +25,7 @@
 ### OAuth scopes :
 -->For any OAuth grant type, the client application has to specify which data it wants to access and what kind of operations it wants to perform. It does this using the `scope` parameter of the authorization request it sends to the OAuth service.
 
-==============================================================
+==========================================================
 
 ## Authorization code grant type :
 -->the client application and OAuth service first use redirects to exchange a series of browser-based HTTP requests that initiate the flow
@@ -126,7 +126,7 @@ In addition to the `client_id` and authorization `code`, you will notice the fol
 -->implicit is far less secure
 -->When using the implicit grant type, all communication happens via browser redirects - there is no secure back-channel like in the authorization code flow. This means that the sensitive access token and the user's data are more exposed to potential attacks.
 
-#### 1. Authorization request ->#### 2. User login and consent ->#### 3. Access token grant  - ithvere same aan.ivide vech kali marum
+#### 1. Authorization request -> 2. User login and consent -> 3. Access token grant  
 -->If the user gives their consent to the requested access, this is where things start to differ. The OAuth service will redirect the user's browser to the `redirect_uri` specified in the authorization request. However, instead of sending a query parameter containing an authorization code, it will send the access token and other token-specific data as a URL fragment.
 
            `GET /callback#access_token=z0y9x8w7v6u5&token_type=Bearer&expires_in=5000&scope=openid%20profile&state=ae13d489bd00e3c24 HTTP/1.1`
@@ -152,7 +152,7 @@ In addition to the `client_id` and authorization `code`, you will notice the fol
 
 ## OAuth authentication :
 -->Although not originally intended for this purpose, OAuth has evolved into a means of authenticating users as well
--->.For example, you're probably familiar with the option many websites provide to log in using your existing social media account rather than having to register with the website in question. Whenever you see this option, there's a good chance it is built on OAuth 2.0.
+-->For example, you're probably familiar with the option many websites provide to log in using your existing social media account rather than having to register with the website in question. Whenever you see this option, there's a good chance it is built on OAuth 2.0.
 -->OAuth authentication is generally implemented as follows:
 1.  The user chooses the option to log in with their social media account. The client application then uses the social media site's OAuth service to request access to some data that it can use to identify the user. This could be the email address that is registered with their account, for example.
 2.  After receiving an access token, the client application requests this data from the resource server, typically from a dedicated `/userinfo` endpoint.
@@ -234,13 +234,13 @@ In addition to the `client_id` and authorization `code`, you will notice the fol
 
           GET /oauth-linking?code=n7L8WSYsQ1bSw3996RrXdFJ7WdbYfeb7tpWsiAFS0Re HTTP/1.1
 -->so ivide namude account umayi socila media account link chyuna samayath um state parameter illa
--->so ini enth venamenal onukoodi `attach a social media`  option select chyuka.enit mumbathe pole thane username,password oke koduth send chyuka.but ivide intercept on chythit venam chyan.enit avasanam ee GET /oauth-linking?code=... enna request ethumbol copy url select chyuka enit request drop chyuka.apol ithil namuk thanitula code parameter ile value usec aakunila.so csrf attack chyumbol aa code used aayikolum
+-->so ini enth venamenal onukoodi `attach a social media`  option select chyuka.enit mumbathe pole thane username,password oke koduth send chyuka.but ivide intercept on chythit venam chyan.enit avasanam ee GET /oauth-linking?code=... enna request ethumbol copy url select chyuka enit request drop chyuka.apol ithil namuk thanitula code parameter ile value used aakunila.so csrf attack chyumbol aa code used aayikolum
 -->ini namuk oru iframe aaki ee url src il kodukam(exploit server il) :
 
                `<iframe src="https://YOUR-LAB-ID.web-security-academy.net/oauth-linking?code=STOLEN-CODE"></iframe>`
 
 -->ini matoru user in kodukam.ivide admin aan kodukunath.so ini admin ee malicious iframe il poikumbol ee url trigger aakum.so adminte puthiya social media profile aayi namude social media profile attach aakum.so ini namal application il poi social media account vazhi login chyuna samayath admin te account il aakum keruka karanam.admin avante social media account aayi namude account koduthirikunu
--->ivide enthan sambavikunath ennal.ivide kanam namude rand reethiyil login chyam.athupole namude account il keritum social media profile attach chyam.so ivide oauth chyumbol kanam url il state parameter illa.so prone to csrf attack.so namal namude account il keri social media account attach chyuna button click chyuka.enit ee social media account link chyuna url vere ethit aa request inte url copy chyunu.enit aa request drop chyuka.apol athil ulla code parameter used aakunila.so valid aayi nikum.ini ee copy chytha url oru iframe il aaki victim in athayath ivide admin kodukunu.admin click chyumbol ee iframe il ulla src yil ee oauth process inte url aanalo ullath.athayath social media link chyuna request apol namude admin annan ee iframe il kerumbol ee link work aakum.apol admin annante account ile social media account namude social media account aayi marum.athayath namude social media username,password oke koduth last step ayapol alle namal url copy chyth request drop chythath.so ini vere oru user ee malicious iframe il kerumbol ayalude account il namude social media account aan attach aakuka.so ini namal namude social media acount vech login chythal aa victim nte account ilekan namal keruka ok
+-->ivide enthan sambavikunath ennal.ivide kanam rand reethiyil login chyam.athupole namude account il keritum social media profile attach chyam.so ivide oauth chyumbol kanam url il state parameter illa.so prone to csrf attack.so namal namude account il keri social media account attach chyuna button click chyuka.enit ee social media account link chyuna url vere ethit aa request inte url copy chyunu.enit aa request drop chyuka.apol athil ulla code parameter used aakunila.so valid aayi nikum.ini ee copy chytha url oru iframe il aaki victim in athayath ivide admin kodukunu.admin click chyumbol ee iframe il ulla src yil ee oauth process inte url aanalo ullath.athayath social media link chyuna request apol namude admin annan ee iframe il kerumbol ee link work aakum.apol admin annante account ile social media account namude social media account aayi marum.athayath namude social media username,password oke koduth last step ayapol alle namal url copy chyth request drop chythath.so ini vere oru user ee malicious iframe il kerumbol ayalude account il namude social media account aan attach aakuka.so ini namal namude social media acount vech login chythal aa victim nte account ilekan namal keruka ok
 
 ==============================================================
 
@@ -273,7 +273,7 @@ In addition to the `client_id` and authorization `code`, you will notice the fol
             GET /auth?client_id=p18aamdh7zzc31b8xzfb3&redirect_uri=https://0a5b00df049eadf9c06f27d000d0003e.web-security-academy.net/oauth-callback&response_type=token&nonce=-236298252&scope=openid%20profile%20email HTTP/1.1
 
 -->ivide ulla redirect_uri il nerthe pole enthengilum ittal aavila.like athile value remove chyth https://example.com  enn koduthal error varum.but ithile value il enthengilum extra cherkumbol kozhapam ila so  -> redirect_uri=https://0a5b00df049eadf9c06f27d000d0003e.web-security-academy.net/oauth-callbac/../post?postid=1   enn kodukumbol aavunund
--->note: ivide post ennath already ee website il ulla oru path aan.athil ulla real parameter thane aan it.ivide /../ enn ittath in karanam ee post enna path one page up il aan ullath athukondan 
+-->note: ivide post ennath already ee website il ulla oru path aan.athil ulla real parameter thane aan ivide itath.ivide /../ enn ittath in karanam ee post enna path one page up il aan ullath athukondan 
 -->ingane chymbol namal first blog post ilek redirect chyapedukayan
 -->baki manasilayita pine epengilum nokam
 

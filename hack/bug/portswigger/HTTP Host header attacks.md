@@ -17,7 +17,7 @@ ithupolula vulnerabilites host header attack vazhi chyan patum
 -->On the other hand, as the Host header is such a fundamental part of how the websites work, tampering with it often means you will be unable to reach the target application at all. The front-end server or load balancer that received your request may simply not know where to forward it, resulting in an "`Invalid Host header`" error of some kind. This is especially likely if your target is accessed via a CDN. In this case, you should move on to trying some of the techniques outlined below.
 ## #1 Check for flawed validation :
 --> arbitrary sathanam host il itt send chyumbol "`Invalid Host header`"  ennayirikum response varuka.ella response um ingane aayirikanamenila.so varuna response in anusarich forward chyanam
--->websiste engane aan host header parse chyunath enn study chyanam.host header il port chech chyunundon nokanam.check chyunilengil avide namuk payload chyan patumon nokanam
+-->websiste engane aan host header parse chyunath enn study chyanam.host header il port check chyunundon nokanam.check chyunilengil avide namuk payload chyan patumon nokanam
 
                         GET /example HTTP/1.1 
                         Host: vulnerable-website.com:bad-stuff-here
@@ -145,7 +145,7 @@ ithupolula vulnerabilites host header attack vazhi chyan patum
 
 ==============================================================
 
-        Lab-6(SSRF via flawed request parsing)
+		        Lab-6(SSRF via flawed request parsing)
 -->ivide lab open chyuka enit home page inte GET / request eduth repeater il viduka
 -->host header il extra enthengilum add chyuka apol kanam 403 FORBIDDEN enn kanam
 -->ini namal GET /   eena request  ile  /   maati  browser il poi aa home page inte url angane thane copy chyth ivide paste chyuka ie, `GET https://0aae00fa047fc721c1fd054b0069005c.web-security-academy.net/ HTTP/1.1`
@@ -183,6 +183,6 @@ ithupolula vulnerabilites host header attack vazhi chyan patum
 4) so oru website ilekan request varunathengil re.proxy angotek request ayakum. enit respone ayakum
 5) reverse proxy ennath satharan proxy pole thanne aan.pakshe re.proxy il additional benefits und. ie, loadbalancing.loadbalancing ennath re.proxy ide oru main feature aan
 6)  kore clients amazon.com request chyumbol kore request serverilek varum.apol aa load balance chyunathan load balancer aan
-7) ==caching: satharana proxy pole re.proxy ilum caching nadakunund. ee caching aan nammal webcache poisoning attackil padichath==.so oru partical pagein aayi multiple request nadakumbol server aa page ee rev.proxy il cache chyth vekum.apol clients in easy aayi page kitum
+7) ==caching: satharana proxy pole re.proxy ilum caching nadakunund. ee caching aan nammal webcache poisoning attackil padichath==.so oru particular pagein aayi multiple request nadakumbol server aa page ee rev.proxy il cache chyth vekum.apol clients in easy aayi page kitum
 8) adutha featurum proxy ullath thanne ie, seucrity. so request ayakuna client in ariyan patila ethe server , ip  il ninan respones varunath.so ellam hidden aaki vekum
 9) rev.proxy ide matoru feature aan compression.athayath varuna requst ile packets compress chyth oru .zip file aak namuk response oke tharum
